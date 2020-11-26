@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="major_background">#DEEACE</color>
+    <color name="dialog_background_button">#CFCFCF</color>
+    <color name="primary_dark">#0D3901</color>
+    <color name="clickable_button">#003F71</color>
+    <color name="unClickable_button">#098F8B</color>
+    <color name="button1">#07248F</color>
+    <color name="button_pressed1">#A1AEEF</color>
+    <color name="button2">#4460EF</color>
+    <color name="button3">#EF5454</color>
+
+
+
+    <color name="purple_700">#FF6200EE</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

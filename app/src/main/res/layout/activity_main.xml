@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/major_background"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".MainActivity"
+    android:id="@+id/lin_lay">
+
+    <ImageView
+        android:id="@+id/splash"
+        android:layout_marginTop="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:src="@drawable/j_app_logo"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Let's be Simple"
+        android:textSize="14sp"
+        android:textColor="#070A49"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="J-aPP"
+        android:gravity="center|bottom"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
+        android:layout_marginBottom="100dp"/>
+
+</LinearLayout>
