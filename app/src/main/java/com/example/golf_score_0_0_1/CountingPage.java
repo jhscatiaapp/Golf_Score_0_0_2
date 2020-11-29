@@ -1,10 +1,13 @@
 package com.example.golf_score_0_0_1;
 
+import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,8 +25,9 @@ import static com.example.golf_score_0_0_1.R.drawable.design_button_remove_playe
 public class CountingPage extends AppCompatActivity {
 
     private TextView scoreView, scoreDisp;
+    private TextView namePlayer1, namePlayer2, namePlayer3, namePlayer4;
     private Button buttonMinus, buttonPlus, buttonOK, buttonReset;
-    private Button buttonAddPlayer;
+    private Button buttonAddPlayer1, buttonAddPlayer2, buttonAddPlayer3, buttonAddPlayer4;
 
     private int tempScore = 0;
     private int hole = 0;
@@ -36,8 +40,9 @@ public class CountingPage extends AppCompatActivity {
     private final int PAR5 = 5;
     private final int PAR6 = 6;
     private RadioButton btnPar3, btnPar4, btnPar5, btnPar;
-    private String pars;
+    private String pars, tempPlayerName;
     private RadioGroup radioGroup;
+    private Dialog playerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +52,33 @@ public class CountingPage extends AppCompatActivity {
         variablesSetter();
         scoreView.setText(String.valueOf(tempScore));
 
-        buttonAddPlayer.setOnClickListener(v -> {
-
+        buttonAddPlayer1.setOnClickListener(v -> {
             /**    Dialog POPup to get name and button OK / CANCEL        */
+            playerDialog.setContentView(R.layout.dialog_add_player);
 
+            Button OK = playerDialog.findViewById(R.id.dlg_addPlayer_Yes);
+            Button CANCEL = playerDialog.findViewById(R.id.dlg_addPlayer_No);
+            EditText getPlayerName = playerDialog.findViewById(R.id.editText_inputPlayerName);
+
+            OK.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tempPlayerName = getPlayerName.getText().toString();
+                    players.add(tempPlayerName);
+                    namePlayer1.setText(tempPlayerName);
+                    playerDialog.dismiss();
+                }
+            });
+
+            CANCEL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    playerDialog.dismiss();
+                }
+            });
+
+            playerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            playerDialog.show();
         });
 
         buttonPlus.setOnClickListener(new View.OnClickListener() {
@@ -119,40 +147,6 @@ public class CountingPage extends AppCompatActivity {
 
     }
 
-    public void onRadioButtonChecked(View v) {
-        boolean isSelected = v.isSelected();
-
-        switch (v.getId()) {
-            case R.id.button_par_3:
-                if (isSelected) {
-                    btnPar3.setTextColor(Color.RED);
-                    btnPar4.setTextColor(Color.WHITE);
-                    btnPar5.setTextColor(Color.WHITE);
-                    par.add(PAR3);
-                    pars = String.valueOf(PAR3);
-                }
-                break;
-            case R.id.button_par_4:
-                if (isSelected) {
-                    btnPar3.setTextColor(Color.WHITE);
-                    btnPar4.setTextColor(Color.RED);
-                    btnPar5.setTextColor(Color.WHITE);
-                    par.add(PAR4);
-                    pars = String.valueOf(PAR4);
-                }
-                break;
-            case R.id.button_par_5:
-                if (isSelected) {
-                    btnPar3.setTextColor(Color.WHITE);
-                    btnPar4.setTextColor(Color.WHITE);
-                    btnPar5.setTextColor(Color.RED);
-                    par.add(PAR5);
-                    pars = String.valueOf(PAR5);
-                }
-                break;
-        }
-    }
-
     public void scoreDisp(int score) {
         if (score <= 0) {
             scoreView.setTextColor(Color.BLUE);
@@ -172,12 +166,17 @@ public class CountingPage extends AppCompatActivity {
         buttonReset = findViewById(R.id.button_reset);
         players.clear();
         par.clear();
-        buttonAddPlayer = findViewById(R.id.button_addName);
-        buttonAddPlayer.setBackground(this.getResources().getDrawable(R.drawable.button_add_player));
+        buttonAddPlayer1 = findViewById(R.id.button_addName1);
+        buttonAddPlayer1.setBackground(this.getResources().getDrawable(R.drawable.button_add_player));
+        buttonAddPlayer2 = findViewById(R.id.button_addName2);
+        buttonAddPlayer2.setBackground(this.getResources().getDrawable(R.drawable.button_add_player));
         btnPar3 = findViewById(R.id.button_par_3);
         btnPar4 = findViewById(R.id.button_par_4);
         btnPar5 = findViewById(R.id.button_par_5);
         radioGroup = findViewById(R.id.rdo_grp);
+        playerDialog = new Dialog(CountingPage.this);
+        namePlayer1 = findViewById(R.id.textView_player1);
+        namePlayer2 = findViewById(R.id.textView_player2);
 
     }
 }
