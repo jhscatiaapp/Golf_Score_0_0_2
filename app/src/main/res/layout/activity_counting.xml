@@ -4,16 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    android:background="@color/major_background"
     android:orientation="vertical"
-    android:padding="3dp">
+    android:padding="3dp"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:background="@color/button1"
+            android:text="PAR"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rdo_grp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/button_par_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_par3_selector"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/button_par_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_par3_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/button_par_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_par3_selector"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </RadioGroup>
+
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button_addName"
@@ -24,27 +92,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
             android:layout_marginLeft="6dp"
+            android:layout_weight="0.5"
             android:gravity="center|left">
 
             <TextView
                 android:id="@+id/textView_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No Name"
                 android:layout_marginLeft="6dp"
+                android:text="No Name"
+                android:textColor="#8E8E8E"
                 android:textSize="16sp"
-                android:textStyle="bold|italic"
-                android:textColor="#8E8E8E"/>
+                android:textStyle="bold|italic" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="0.7">
+            android:layout_weight="0.7"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button_minus1"
@@ -58,13 +126,13 @@
                 android:id="@+id/view_score1"
                 android:layout_width="35dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="-1"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:textColor="#0037FF"/>
+                android:gravity="center"
+                android:text="-1"
+                android:textColor="#0037FF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/button_plus1"
@@ -72,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>
@@ -81,20 +149,605 @@
         android:id="@+id/button_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:text="OK" />
+
     <Button
         android:id="@+id/button_reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="reset"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:text="reset" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hole  PAR  Score" />
 
     <TextView
         android:id="@+id/textView_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:hint="score here"/>
+        android:hint="score here"
+        android:textSize="18sp" />
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow>
+
+                        <TextView
+                            android:width="80dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="right"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="HOLE   "
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no1"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="1"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no2"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="2"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no3"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="3"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no4"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="4"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no5"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="5"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no6"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="6"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no7"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="7"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no8"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="8"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no9"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="9"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no10"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="10"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no11"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="11"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no12"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="12"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no13"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="13"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no14"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="14"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no15"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="15"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no16"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="16"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no17"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="17"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no18"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="18"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+
+                    <TableRow>
+
+                        <TextView
+                            android:width="80dp"
+                            android:background="@drawable/green_table_border"
+                            android:gravity="right"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="PAR   "
+                            android:textColor="#000000"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no1_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no2_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no3_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no4_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no5_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no6_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no7_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no8_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no9_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no10_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no11_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no12_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no13_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no14_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no15_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no16_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no17_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/hole_no18_par"
+                            android:width="25dp"
+                            android:background="@drawable/green_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="4"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+
+                    <TableRow>
+
+                        <TextView
+                            android:width="160dp"
+                            android:background="@drawable/majorbackground_table_border"
+                            android:gravity="center"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="Jeong Hyun Seung"
+                            android:textColor="#002671"
+                            android:textSize="15sp"
+                            android:textStyle="bold|italic"/>
+
+                        <TextView
+                            android:id="@+id/hole_no1_p1_score"
+                            android:width="25dp"
+                            android:background="@drawable/majorbackground_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="0"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/hole_no2_p1_score"
+                            android:width="25dp"
+                            android:background="@drawable/majorbackground_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="0"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/hole_no3_p1_score"
+                            android:width="25dp"
+                            android:background="@drawable/majorbackground_table_border"
+                            android:clickable="true"
+                            android:contextClickable="true"
+                            android:gravity="center"
+                            android:hint="0"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
+                    </TableRow>
+
+
+                </TableLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
 
 </LinearLayout>
