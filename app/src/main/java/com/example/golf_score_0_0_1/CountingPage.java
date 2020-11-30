@@ -67,6 +67,7 @@ public class CountingPage extends AppCompatActivity {
                     players.add(tempPlayerName);
                     namePlayer1.setText(tempPlayerName);
                     playerDialog.dismiss();
+
                 }
             });
 
