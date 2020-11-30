@@ -86,8 +86,13 @@
 
         <Button
             android:id="@+id/button_addName1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center" />
+        <Button
+            android:id="@+id/button_removeName1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center" />
 
         <LinearLayout
@@ -117,11 +122,12 @@
 
             <Button
                 android:id="@+id/button_minus1"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:text="-"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/view_score1"
@@ -130,6 +136,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:text="-1"
                 android:textColor="#0037FF"
                 android:textSize="18sp"
@@ -137,8 +144,10 @@
 
             <Button
                 android:id="@+id/button_plus1"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:inputType="none"
                 android:text="+"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -154,8 +163,13 @@
 
         <Button
             android:id="@+id/button_addName2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center" />
+        <Button
+            android:id="@+id/button_removeName2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center" />
 
         <LinearLayout
@@ -185,11 +199,12 @@
 
             <Button
                 android:id="@+id/button_minus2"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:text="-"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/view_score2"
@@ -201,15 +216,17 @@
                 android:text="-1"
                 android:textColor="#0037FF"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
 
             <Button
                 android:id="@+id/button_plus2"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:text="+"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -227,11 +244,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="reset" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hole  PAR  Score" />
 
     <TextView
         android:id="@+id/textView_score"

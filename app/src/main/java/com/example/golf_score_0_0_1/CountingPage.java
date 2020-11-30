@@ -28,6 +28,7 @@ public class CountingPage extends AppCompatActivity {
     private TextView namePlayer1, namePlayer2, namePlayer3, namePlayer4;
     private Button buttonMinus, buttonPlus, buttonOK, buttonReset;
     private Button buttonAddPlayer1, buttonAddPlayer2, buttonAddPlayer3, buttonAddPlayer4;
+    private Button buttonRemovePlayer1, buttonRemovePlayer2, buttonRemovePlayer3, buttonRemovePlayer4;
 
     private int tempScore = 0;
     private int hole = 0;
@@ -54,32 +55,12 @@ public class CountingPage extends AppCompatActivity {
 
         buttonAddPlayer1.setOnClickListener(v -> {
             /**    Dialog POPup to get name and button OK / CANCEL        */
-            playerDialog.setContentView(R.layout.dialog_add_player);
+            clickAddPlayer();
+        });
 
-            Button OK = playerDialog.findViewById(R.id.dlg_addPlayer_Yes);
-            Button CANCEL = playerDialog.findViewById(R.id.dlg_addPlayer_No);
-            EditText getPlayerName = playerDialog.findViewById(R.id.editText_inputPlayerName);
-
-            OK.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    tempPlayerName = getPlayerName.getText().toString();
-                    players.add(tempPlayerName);
-                    namePlayer1.setText(tempPlayerName);
-                    playerDialog.dismiss();
-
-                }
-            });
-
-            CANCEL.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    playerDialog.dismiss();
-                }
-            });
-
-            playerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            playerDialog.show();
+        buttonRemovePlayer1.setOnClickListener(v -> {
+            /**       Dialog POPup to confirm to remove player           */
+            clickRemovePlayer();
         });
 
         buttonPlus.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +129,42 @@ public class CountingPage extends AppCompatActivity {
 
     }
 
+    public void clickRemovePlayer() {
+
+
+
+
+    }
+
+    public void clickAddPlayer() {
+        playerDialog.setContentView(R.layout.dialog_add_player);
+
+        Button OK = playerDialog.findViewById(R.id.dlg_addPlayer_Yes);
+        Button CANCEL = playerDialog.findViewById(R.id.dlg_addPlayer_No);
+        EditText getPlayerName = playerDialog.findViewById(R.id.editText_inputPlayerName);
+
+        OK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tempPlayerName = getPlayerName.getText().toString();
+                players.add(tempPlayerName);
+                namePlayer1.setText(tempPlayerName);
+                namePlayer1.setTextColor(Color.BLACK);
+                playerDialog.dismiss();
+            }
+        });
+
+        CANCEL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playerDialog.dismiss();
+            }
+        });
+
+        playerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        playerDialog.show();
+    }
+
     public void scoreDisp(int score) {
         if (score <= 0) {
             scoreView.setTextColor(Color.BLUE);
@@ -171,6 +188,10 @@ public class CountingPage extends AppCompatActivity {
         buttonAddPlayer1.setBackground(this.getResources().getDrawable(R.drawable.button_add_player));
         buttonAddPlayer2 = findViewById(R.id.button_addName2);
         buttonAddPlayer2.setBackground(this.getResources().getDrawable(R.drawable.button_add_player));
+        buttonRemovePlayer1 = findViewById(R.id.button_removeName1);
+        buttonRemovePlayer1.setBackground(this.getResources().getDrawable(design_button_remove_player));
+        buttonRemovePlayer2 = findViewById(R.id.button_removeName2);
+        buttonRemovePlayer2.setBackground(this.getResources().getDrawable(design_button_remove_player));
         btnPar3 = findViewById(R.id.button_par_3);
         btnPar4 = findViewById(R.id.button_par_4);
         btnPar5 = findViewById(R.id.button_par_5);
