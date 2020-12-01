@@ -17,6 +17,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import static com.example.golf_score_0_0_1.R.drawable.design_button_add_player;
@@ -24,16 +26,18 @@ import static com.example.golf_score_0_0_1.R.drawable.design_button_remove_playe
 
 public class CountingPage extends AppCompatActivity {
 
-    private TextView scoreView, scoreDisp;
+    private TextView scoreView1, scoreView2, scoreDisp;
     private TextView namePlayer1, namePlayer2, namePlayer3, namePlayer4;
-    private Button buttonMinus, buttonPlus, buttonOK, buttonReset;
+    private Button buttonMinus1, buttonPlus1, buttonOK, buttonReset;
+    private Button buttonMinus2, buttonPlus2;
     private Button buttonAddPlayer1, buttonAddPlayer2, buttonAddPlayer3, buttonAddPlayer4;
     private Button buttonRemovePlayer1, buttonRemovePlayer2, buttonRemovePlayer3, buttonRemovePlayer4;
 
-    private int tempScore = 0;
+    private int tempScore1 = 0, tempScore2 = 0;
     private int hole = 0;
     private int sumScore = 0;
-    private ArrayList<Integer> arrayScore = new ArrayList<>();
+    private ArrayList<Integer> arrayScore1 = new ArrayList<>();
+    private ArrayList<Integer> arrayScore2 = new ArrayList<>();
     private ArrayList<String> players = new ArrayList<>();
     private ArrayList<Integer> par = new ArrayList<>();
     private final int PAR3 = 3;
@@ -52,7 +56,8 @@ public class CountingPage extends AppCompatActivity {
 
         variablesSetter();
         //buttonDesignSetting();
-        scoreView.setText(String.valueOf(tempScore));
+        scoreView1.setText(String.valueOf(tempScore1));
+        scoreView2.setText(String.valueOf(tempScore2));
 
         buttonAddPlayer1.setOnClickListener(v -> {
             /**    Dialog POPup to get name and button OK / CANCEL        */
@@ -60,22 +65,35 @@ public class CountingPage extends AppCompatActivity {
         });
 
 
-        //TODO 버튼 클릭시 앱 작동 멈춤 발생. If 관련 세팅 문제일듯 함.
         buttonRemovePlayer1.setOnClickListener(v -> {
             clickRemovePlayer1();
         });
 
-        buttonPlus.setOnClickListener(new View.OnClickListener() {
+        buttonPlus1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scoreDisp(++tempScore);
+                scoreDisp1(++tempScore1);
             }
         });
 
-        buttonMinus.setOnClickListener(new View.OnClickListener() {
+        buttonMinus1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scoreDisp(--tempScore);
+                scoreDisp1(--tempScore1);
+            }
+        });
+
+        buttonPlus2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scoreDisp2(++tempScore2);
+            }
+        });
+
+        buttonMinus2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scoreDisp2(--tempScore2);
             }
         });
 
@@ -98,15 +116,30 @@ public class CountingPage extends AppCompatActivity {
                         break;
                 }
 
-                arrayScore.add(tempScore);
-                scoreDisp.append(hole + "  " + pars + "  " + tempScore + "\n");
-                tempScore = 0;
-                scoreView.setText(String.valueOf(tempScore));
+                /**    Put PAR info to score card acc to HOLE info        */
+
+
+                /**    데이터 구조의 전면적인 개편 필요. 루프 구문/어레이 데이터 구조를 통해
+                 *     전면적인 개편일 필요. 디스플레이도 루프구문으로 계속 돌려야 함          */
+
+                TextView parInfo01 = findViewById(R.id.hole_no1_par);
+                TextView parInfo02 = findViewById(R.id.hole_no2_par);
+
+                parInfo01.setText(pars);
+
+                arrayScore1.add(tempScore1);
+                arrayScore2.add(tempScore2);
+
+                scoreDisp.append(hole + "  " + pars + "  " + tempScore1 + "  " + tempScore2 + "\n");
+                tempScore1 = 0;
+                tempScore2 = 0;
+                scoreView1.setText(String.valueOf(tempScore1));
+                scoreView2.setText(String.valueOf(tempScore2));
 
                 if (hole == 18) {
                     int totalPar = 0;
-                    for (int i = 0; i < arrayScore.size(); i++) {
-                        sumScore += arrayScore.get(i);
+                    for (int i = 0; i < arrayScore1.size(); i++) {
+                        sumScore += arrayScore1.get(i);
                         totalPar += par.get(i);
                     }
                     int totalScore = totalPar + sumScore;
@@ -119,13 +152,16 @@ public class CountingPage extends AppCompatActivity {
         });
 
         buttonReset.setOnClickListener(v -> {
-            arrayScore.clear();
+            arrayScore1.clear();
+            arrayScore2.clear();
             par.clear();
             scoreDisp.setText(null);
             hole = 0;
             sumScore = 0;
-            tempScore = 0;
-            scoreView.setText(String.valueOf(tempScore));
+            tempScore1 = 0;
+            tempScore2 = 0;
+            scoreView1.setText(String.valueOf(tempScore1));
+            scoreView2.setText(String.valueOf(tempScore2));
         });
 
 
@@ -198,22 +234,35 @@ public class CountingPage extends AppCompatActivity {
         playerDialog.show();
     }
 
-    public void scoreDisp(int score) {
+    public void scoreDisp1(int score) {
         if (score <= 0) {
-            scoreView.setTextColor(Color.BLUE);
+            scoreView1.setTextColor(Color.RED);
         } else {
-            scoreView.setTextColor(Color.RED);
+            scoreView1.setTextColor(Color.BLUE);
         }
-        scoreView.setText(String.valueOf(score));
+        scoreView1.setText(String.valueOf(score));
+    }
+
+    public void scoreDisp2(int score) {
+        if (score <= 0) {
+            scoreView2.setTextColor(Color.RED);
+        } else {
+            scoreView2.setTextColor(Color.BLUE);
+        }
+        scoreView2.setText(String.valueOf(score));
     }
 
     public void variablesSetter() {
-        scoreView = findViewById(R.id.view_score1);
-        buttonMinus = findViewById(R.id.button_minus1);
-        buttonPlus = findViewById(R.id.button_plus1);
+        scoreView1 = findViewById(R.id.view_score1);
+        scoreView2 = findViewById(R.id.view_score2);
+        buttonMinus1 = findViewById(R.id.button_minus1);
+        buttonPlus1 = findViewById(R.id.button_plus1);
+        buttonMinus2 = findViewById(R.id.button_minus2);
+        buttonPlus2 = findViewById(R.id.button_plus2);
         buttonOK = findViewById(R.id.button_ok);
         scoreDisp = findViewById(R.id.textView_score);
-        arrayScore.clear();
+        arrayScore1.clear();
+        arrayScore2.clear();
         buttonReset = findViewById(R.id.button_reset);
         players.clear();
         par.clear();

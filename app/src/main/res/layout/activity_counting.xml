@@ -142,8 +142,8 @@
                 android:layout_marginRight="8dp"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:text="-1"
-                android:textColor="#0037FF"
+                android:text="0"
+                android:textColor="#FF0000"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -222,8 +222,8 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:gravity="center"
-                android:text="-1"
-                android:textColor="#0037FF"
+                android:text="0"
+                android:textColor="#FF0000"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"/>
