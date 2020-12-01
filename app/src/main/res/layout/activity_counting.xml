@@ -88,12 +88,17 @@
             android:id="@+id/button_addName1"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:background="@drawable/button_add_player"
+            app:backgroundTint="@null" />
+
         <Button
             android:id="@+id/button_removeName1"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            app:backgroundTint="@null"
+            android:background="@drawable/button_remove_player"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,8 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:text="No Name"
-                android:textColor="#8E8E8E"
+                android:hint="No Name"
+                android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 
@@ -165,12 +170,16 @@
             android:id="@+id/button_addName2"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            app:backgroundTint="@null"
+            android:background="@drawable/button_add_player"/>
         <Button
             android:id="@+id/button_removeName2"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            app:backgroundTint="@null"
+            android:background="@drawable/button_remove_player"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -184,8 +193,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:text="No Name"
-                android:textColor="#8E8E8E"
+                android:hint="No Name"
+                android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold|italic" />
 

@@ -17,28 +17,24 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="9dp"
-            android:src="@drawable/design_button_add_player"
-            app:tint="@color/button1" />
+            android:src="@drawable/image_alert"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="Input/Change Player Name"
+            android:text="Are you sure?"
             android:textColor="#000000"
             android:textSize="17sp" />
-
-        <EditText
-            android:id="@+id/editText_inputPlayerName"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
-            android:hint="Name Here"
-            android:textColorLink="#4A4A4A"
-            android:textSize="17sp" />
+            android:text="You will lost name and scores"
+            android:textColor="@color/button3"
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +44,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/dlg_addPlayer_Yes"
+                android:id="@+id/dlg_confirm_Yes"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="5dp"
@@ -57,20 +53,20 @@
                 android:background="@drawable/button_change_positive"
                 android:insetTop="1dp"
                 android:insetBottom="1dp"
-                android:text="ok"
+                android:text="yes"
                 android:textColor="#ffffff"
                 android:textSize="15sp"
                 app:backgroundTint="@color/button2"
                 app:iconPadding="2dp" />
 
             <Button
-                android:id="@+id/dlg_addPlayer_No"
+                android:id="@+id/dlg_confirm_No"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/button_change_negative"
-                android:text="cancel"
+                android:text="no"
                 android:insetTop="1dp"
                 android:insetBottom="1dp"
                 app:backgroundTint="@color/button3"

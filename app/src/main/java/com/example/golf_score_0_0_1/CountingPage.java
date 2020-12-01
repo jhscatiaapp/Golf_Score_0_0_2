@@ -43,7 +43,7 @@ public class CountingPage extends AppCompatActivity {
     private RadioButton btnPar3, btnPar4, btnPar5, btnPar;
     private String pars, tempPlayerName;
     private RadioGroup radioGroup;
-    private Dialog playerDialog;
+    private Dialog playerDialog, confirmRemoveDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class CountingPage extends AppCompatActivity {
         setContentView(R.layout.activity_counting);
 
         variablesSetter();
+        //buttonDesignSetting();
         scoreView.setText(String.valueOf(tempScore));
 
         buttonAddPlayer1.setOnClickListener(v -> {
@@ -58,9 +59,10 @@ public class CountingPage extends AppCompatActivity {
             clickAddPlayer();
         });
 
+
+        //TODO 버튼 클릭시 앱 작동 멈춤 발생. If 관련 세팅 문제일듯 함.
         buttonRemovePlayer1.setOnClickListener(v -> {
-            /**       Dialog POPup to confirm to remove player           */
-            clickRemovePlayer();
+            clickRemovePlayer1();
         });
 
         buttonPlus.setOnClickListener(new View.OnClickListener() {
@@ -129,12 +131,43 @@ public class CountingPage extends AppCompatActivity {
 
     }
 
-    public void clickRemovePlayer() {
+    public void clickRemovePlayer1() {
+        confirmRemoveDialog.setContentView(R.layout.dialog_confirm_remove_player);
 
+        Button YES = confirmRemoveDialog.findViewById(R.id.dlg_confirm_Yes);
+        Button NO = confirmRemoveDialog.findViewById(R.id.dlg_confirm_No);
 
+        YES.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tempPlayerName = null;
+                //     players.remove(0);
+                namePlayer1.setText(null);
+                confirmRemoveDialog.dismiss();
+            }
+        });
 
+        NO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmRemoveDialog.dismiss();
+            }
+        });
 
+        // buttonDesignSetting();
+
+        confirmRemoveDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        confirmRemoveDialog.show();
     }
+
+/*    public void buttonDesignSetting() {
+        if (tempPlayerName.equals(null)) {
+            buttonRemovePlayer1.setBackground(CountingPage.this.getResources().getDrawable(R.drawable.design_button_remove_player_pressed));
+            //buttonRemovePlayer1.setClickable(false);
+        } else {
+            buttonRemovePlayer1.setBackground(CountingPage.this.getResources().getDrawable(R.drawable.button_remove_player));
+        }
+    }*/
 
     public void clickAddPlayer() {
         playerDialog.setContentView(R.layout.dialog_add_player);
@@ -185,20 +218,18 @@ public class CountingPage extends AppCompatActivity {
         players.clear();
         par.clear();
         buttonAddPlayer1 = findViewById(R.id.button_addName1);
-        buttonAddPlayer1.setBackground(this.getResources().getDrawable(R.drawable.button_add_player));
         buttonAddPlayer2 = findViewById(R.id.button_addName2);
-        buttonAddPlayer2.setBackground(this.getResources().getDrawable(R.drawable.button_add_player));
         buttonRemovePlayer1 = findViewById(R.id.button_removeName1);
-        buttonRemovePlayer1.setBackground(this.getResources().getDrawable(design_button_remove_player));
         buttonRemovePlayer2 = findViewById(R.id.button_removeName2);
-        buttonRemovePlayer2.setBackground(this.getResources().getDrawable(design_button_remove_player));
         btnPar3 = findViewById(R.id.button_par_3);
         btnPar4 = findViewById(R.id.button_par_4);
         btnPar5 = findViewById(R.id.button_par_5);
         radioGroup = findViewById(R.id.rdo_grp);
         playerDialog = new Dialog(CountingPage.this);
+        confirmRemoveDialog = new Dialog(CountingPage.this);
         namePlayer1 = findViewById(R.id.textView_player1);
         namePlayer2 = findViewById(R.id.textView_player2);
+        tempPlayerName = null;
 
     }
 }
