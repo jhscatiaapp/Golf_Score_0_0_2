@@ -17,7 +17,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="9dp"
-            android:src="@drawable/design_button_add_player"
+            android:src="@drawable/player_add_btn_default"
             app:tint="@color/button1" />
 
         <TextView

@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <solid android:color="@color/green_score_card"/>
+    <solid android:color="@color/major_background2"/>
     <stroke android:width="0.4dp"
         android:color="#272727"/>
 

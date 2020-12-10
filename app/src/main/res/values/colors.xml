@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="major_background">#DEEACE</color>
+    <color name="major_background2">#E3E3E3</color>
     <color name="dialog_background_button">#CFCFCF</color>
     <color name="primary_dark">#0D3901</color>
     <color name="clickable_button">#003F71</color>
@@ -11,6 +12,8 @@
     <color name="button3">#EF5454</color>
     <color name="text_background1">#4E4E4E</color>
     <color name="button4">#222222</color>
+    <color name="blue_score_card">#42A5F5</color>
+    <color name="green_score_card">#66BB6A</color>
 
 
 

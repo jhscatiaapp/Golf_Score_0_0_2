@@ -19,14 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import static com.example.golf_score_0_0_1.R.drawable.design_button_add_player;
-import static com.example.golf_score_0_0_1.R.drawable.design_button_remove_player;
-
 public class CountingPage extends AppCompatActivity {
 
-    private TextView scoreView, scoreDisp;
+    private TextView scoreView1, scoreView2, scoreView3, scoreView4;
     private TextView namePlayer1, namePlayer2, namePlayer3, namePlayer4;
-    private Button buttonMinus, buttonPlus, buttonOK, buttonReset;
+    private Button buttonMinus, buttonPlus, buttonOK;
     private Button buttonAddPlayer1, buttonAddPlayer2, buttonAddPlayer3, buttonAddPlayer4;
     private Button buttonRemovePlayer1, buttonRemovePlayer2, buttonRemovePlayer3, buttonRemovePlayer4;
 
@@ -52,7 +49,7 @@ public class CountingPage extends AppCompatActivity {
 
         variablesSetter();
 
-        scoreView.setText(String.valueOf(tempScore));
+        scoreView1.setText(String.valueOf(tempScore));
 
         buttonAddPlayer1.setOnClickListener(v -> {
             /**    Dialog POPup to get name and button OK / CANCEL        */
@@ -60,7 +57,6 @@ public class CountingPage extends AppCompatActivity {
         });
 
 
-        //TODO 버튼 클릭시 앱 작동 멈춤 발생. If 관련 세팅 문제일듯 함.
         buttonRemovePlayer1.setOnClickListener(v -> {
             clickRemovePlayer1();
         });
@@ -68,14 +64,14 @@ public class CountingPage extends AppCompatActivity {
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scoreDisp(++tempScore);
+                //scoreDisp(++tempScore);
             }
         });
 
         buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scoreDisp(--tempScore);
+                //scoreDisp(--tempScore);
             }
         });
 
@@ -103,9 +99,9 @@ public class CountingPage extends AppCompatActivity {
                 }
 
                 arrayScore.add(tempScore);
-                scoreDisp.append(hole + "  " + pars + "  " + tempScore + "\n");
+                //scoreDisp.append(hole + "  " + pars + "  " + tempScore + "\n");
                 tempScore = 0;
-                scoreView.setText(String.valueOf(tempScore));
+                //scoreView.setText(String.valueOf(tempScore));
 
                 if (hole == 18) {
                     int totalPar = 0;
@@ -114,22 +110,12 @@ public class CountingPage extends AppCompatActivity {
                         totalPar += par.get(i);
                     }
                     int totalScore = totalPar + sumScore;
-                    scoreDisp.append("Total Score is " + sumScore + "\n");
-                    scoreDisp.append("Total score/par : " + totalScore + "/" + totalPar);
+                    //scoreDisp.append("Total Score is " + sumScore + "\n");
+                    //scoreDisp.append("Total score/par : " + totalScore + "/" + totalPar);
                 }
             } else {
                 Toast.makeText(this, "Finish 18 holes", Toast.LENGTH_SHORT).show();
             }
-        });
-
-        buttonReset.setOnClickListener(v -> {
-            arrayScore.clear();
-            par.clear();
-            scoreDisp.setText(null);
-            hole = 0;
-            sumScore = 0;
-            tempScore = 0;
-            scoreView.setText(String.valueOf(tempScore));
         });
 
 
@@ -202,23 +188,25 @@ public class CountingPage extends AppCompatActivity {
         playerDialog.show();
     }
 
-    public void scoreDisp(int score) {
+    /*public void scoreDisp(int score) {
         if (score <= 0) {
             scoreView.setTextColor(Color.BLUE);
         } else {
             scoreView.setTextColor(Color.RED);
         }
         scoreView.setText(String.valueOf(score));
-    }
+    }*/
 
     public void variablesSetter() {
-        scoreView = findViewById(R.id.view_score1);
+        scoreView1 = findViewById(R.id.view_score1);
+        scoreView2 = findViewById(R.id.view_score2);
+        scoreView3 = findViewById(R.id.view_score3);
+        scoreView4 = findViewById(R.id.view_score4);
+
         buttonMinus = findViewById(R.id.button_minus1);
         buttonPlus = findViewById(R.id.button_plus1);
         buttonOK = findViewById(R.id.button_ok);
-        scoreDisp = findViewById(R.id.textView_score);
         arrayScore.clear();
-        buttonReset = findViewById(R.id.button_reset);
         players.clear();
         par.clear();
         buttonAddPlayer1 = findViewById(R.id.button_addName1);
