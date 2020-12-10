@@ -51,7 +51,7 @@ public class CountingPage extends AppCompatActivity {
         setContentView(R.layout.activity_counting);
 
         variablesSetter();
-        //buttonDesignSetting();
+
         scoreView.setText(String.valueOf(tempScore));
 
         buttonAddPlayer1.setOnClickListener(v -> {
@@ -95,6 +95,10 @@ public class CountingPage extends AppCompatActivity {
                     case R.id.button_par_5:
                         par.add(PAR5);
                         pars = String.valueOf(PAR5);
+                        break;
+                    case R.id.button_par_6:
+                        par.add(PAR6);
+                        pars = String.valueOf(PAR6);
                         break;
                 }
 

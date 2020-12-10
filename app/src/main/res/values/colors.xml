@@ -4,11 +4,13 @@
     <color name="dialog_background_button">#CFCFCF</color>
     <color name="primary_dark">#0D3901</color>
     <color name="clickable_button">#003F71</color>
-    <color name="unClickable_button">#098F8B</color>
+    <color name="button_disabled">#717171</color>
     <color name="button1">#07248F</color>
     <color name="button_pressed1">#A1AEEF</color>
     <color name="button2">#4460EF</color>
     <color name="button3">#EF5454</color>
+    <color name="text_background1">#4E4E4E</color>
+    <color name="button4">#222222</color>
 
 
 
