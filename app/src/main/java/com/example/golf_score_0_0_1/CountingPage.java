@@ -1,6 +1,8 @@
 package com.example.golf_score_0_0_1;
 
 import android.app.Dialog;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class CountingPage extends AppCompatActivity {
+
+    public static final String TABLE_NAME1 = "Golf_CC";
 
     private TextView scoreView1, scoreView2, scoreView3, scoreView4;
     private TextView namePlayer1, namePlayer2, namePlayer3, namePlayer4;
@@ -42,12 +46,21 @@ public class CountingPage extends AppCompatActivity {
     private RadioGroup radioGroup;
     private Dialog playerDialog, confirmRemoveDialog;
 
+    private MyDBHelperCC myDBHelperCC = new MyDBHelperCC(this);
+    private SQLiteDatabase myDBCC = myDBHelperCC.getWritableDatabase() ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_counting);
 
         variablesSetter();
+
+
+
+
+
+
 
         scoreView1.setText(String.valueOf(tempScore));
 
@@ -144,20 +157,12 @@ public class CountingPage extends AppCompatActivity {
             }
         });
 
-        // buttonDesignSetting();
 
         confirmRemoveDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         confirmRemoveDialog.show();
     }
 
-/*    public void buttonDesignSetting() {
-        if (tempPlayerName.equals(null)) {
-            buttonRemovePlayer1.setBackground(CountingPage.this.getResources().getDrawable(R.drawable.design_button_remove_player_pressed));
-            //buttonRemovePlayer1.setClickable(false);
-        } else {
-            buttonRemovePlayer1.setBackground(CountingPage.this.getResources().getDrawable(R.drawable.button_remove_player));
-        }
-    }*/
+
 
     public void clickAddPlayer() {
         playerDialog.setContentView(R.layout.dialog_add_player);
@@ -188,14 +193,7 @@ public class CountingPage extends AppCompatActivity {
         playerDialog.show();
     }
 
-    /*public void scoreDisp(int score) {
-        if (score <= 0) {
-            scoreView.setTextColor(Color.BLUE);
-        } else {
-            scoreView.setTextColor(Color.RED);
-        }
-        scoreView.setText(String.valueOf(score));
-    }*/
+
 
     public void variablesSetter() {
         scoreView1 = findViewById(R.id.view_score1);
@@ -223,5 +221,10 @@ public class CountingPage extends AppCompatActivity {
         namePlayer2 = findViewById(R.id.textView_player2);
         tempPlayerName = null;
 
+    }
+
+    private Cursor getAllItemsCC() {
+        return myDBCC.query(TABLE_NAME1, null, null, null,
+                null, null, null);
     }
 }
