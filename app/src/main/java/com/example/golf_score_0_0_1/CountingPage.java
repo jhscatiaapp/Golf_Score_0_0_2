@@ -55,6 +55,7 @@ public class CountingPage extends AppCompatActivity {
         setContentView(R.layout.activity_counting);
 
         variablesSetter();
+        buttonSetter();
 
 
 
@@ -221,6 +222,19 @@ public class CountingPage extends AppCompatActivity {
         namePlayer2 = findViewById(R.id.textView_player2);
         tempPlayerName = null;
 
+    }
+
+    public void buttonSetter() {
+        if (namePlayer1.equals("")) {
+            buttonRemovePlayer1.setEnabled(false);
+            buttonPlus.setEnabled(false);
+            buttonMinus.setEnabled(false);
+        } else {
+            buttonRemovePlayer1.setEnabled(true);
+            buttonPlus.setEnabled(true);
+            buttonMinus.setEnabled(true);
+            buttonAddPlayer1.setBackground(this.getResources().getDrawable(R.drawable.player_change_btn));
+        }
     }
 
     private Cursor getAllItemsCC() {
