@@ -67,26 +67,26 @@ public class MyDBHelperCC extends SQLiteOpenHelper {
 
         contentValues.put(COL_CC, CC);
         contentValues.put(COL_HOLE1, h1);
-        contentValues.put(COL_HOLE1, h2);
-        contentValues.put(COL_HOLE1, h3);
-        contentValues.put(COL_HOLE1, h4);
-        contentValues.put(COL_HOLE1, h5);
-        contentValues.put(COL_HOLE1, h6);
-        contentValues.put(COL_HOLE1, h7);
-        contentValues.put(COL_HOLE1, h8);
-        contentValues.put(COL_HOLE1, h9);
-        contentValues.put(COL_HOLE1, out);
-        contentValues.put(COL_HOLE1, h10);
-        contentValues.put(COL_HOLE1, h11);
-        contentValues.put(COL_HOLE1, h12);
-        contentValues.put(COL_HOLE1, h13);
-        contentValues.put(COL_HOLE1, h14);
-        contentValues.put(COL_HOLE1, h15);
-        contentValues.put(COL_HOLE1, h16);
-        contentValues.put(COL_HOLE1, h17);
-        contentValues.put(COL_HOLE1, h18);
-        contentValues.put(COL_HOLE1, in_);
-        contentValues.put(COL_HOLE1, ttl);
+        contentValues.put(COL_HOLE2, h2);
+        contentValues.put(COL_HOLE3, h3);
+        contentValues.put(COL_HOLE4, h4);
+        contentValues.put(COL_HOLE5, h5);
+        contentValues.put(COL_HOLE6, h6);
+        contentValues.put(COL_HOLE7, h7);
+        contentValues.put(COL_HOLE8, h8);
+        contentValues.put(COL_HOLE9, h9);
+        contentValues.put(COL_HOLE_OUT, out);
+        contentValues.put(COL_HOLE10, h10);
+        contentValues.put(COL_HOLE11, h11);
+        contentValues.put(COL_HOLE12, h12);
+        contentValues.put(COL_HOLE13, h13);
+        contentValues.put(COL_HOLE14, h14);
+        contentValues.put(COL_HOLE15, h15);
+        contentValues.put(COL_HOLE16, h16);
+        contentValues.put(COL_HOLE17, h17);
+        contentValues.put(COL_HOLE18, h18);
+        contentValues.put(COL_HOLE_IN, in_);
+        contentValues.put(COL_HOLE_TTL, ttl);
 
         long error = db.insert(TABLE_NAME, null, contentValues);
         if (error == -1)
