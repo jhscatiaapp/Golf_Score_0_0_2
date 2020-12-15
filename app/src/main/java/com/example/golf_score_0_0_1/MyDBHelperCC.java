@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 public class MyDBHelperCC extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "Golf_CC_test.db";
-    public static final String TABLE_NAME = "Golf_CC";
+    public static final String TABLE_NAME1 = "Golf_CC";
 
     public static final String COL_CC = "CC";
     public static final String COL_HOLE1 = "HOLE1";
@@ -44,16 +44,18 @@ public class MyDBHelperCC extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (CC String, HOLE1 String, HOLE2 String, " +
-                "HOLE3 String, HOLE4 String, HOLE5 String, HOLE6 String, HOLE7 String, " +
-                "HOLE8 String, HOLE9 String, OUT String, HOLE10 String, HOLE11 String, " +
-                "HOLE12 String, HOLE13 String, HOLE14 String, HOLE15 String, HOLE16 String, " +
-                "HOLE17 String, HOLE18 String, IN_ String, TTL String)");
+        db.execSQL("CREATE TABLE " + TABLE_NAME1 + " (CC STRING, HOLE1 STRING, HOLE2 STRING, " +
+                "HOLE3 STRING, HOLE4 STRING, HOLE5 STRING, HOLE6 STRING, HOLE7 STRING, " +
+                "HOLE8 STRING, HOLE9 STRING, OUT STRING, HOLE10 STRING, HOLE11 STRING, " +
+                "HOLE12 STRING, HOLE13 STRING, HOLE14 STRING, HOLE15 STRING, HOLE16 STRING, " +
+                "HOLE17 STRING, HOLE18 STRING, IN_ STRING, TTL STRING)");
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME );
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1 );
         onCreate(db);
     }
 
@@ -88,7 +90,7 @@ public class MyDBHelperCC extends SQLiteOpenHelper {
         contentValues.put(COL_HOLE_IN, in_);
         contentValues.put(COL_HOLE_TTL, ttl);
 
-        long error = db.insert(TABLE_NAME, null, contentValues);
+        long error = db.insert(TABLE_NAME1, null, contentValues);
         if (error == -1)
             return false;
         else
@@ -96,7 +98,7 @@ public class MyDBHelperCC extends SQLiteOpenHelper {
     }
 
     public Cursor readAllData() {
-        String query = "SELECT * FROM " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME1;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -108,14 +110,13 @@ public class MyDBHelperCC extends SQLiteOpenHelper {
 
     public Integer deleteData(String cc) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "CC = ?", new String[] {cc});
+        return db.delete(TABLE_NAME1, "CC = ?", new String[] {cc});
     }
 
     public void deleteAllData() {
-        String query = "DELETE FROM " + TABLE_NAME;
+        String query = "DELETE FROM " + TABLE_NAME1;
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(query);
-        //db.close();
-        /**          after cancel close db it is working. i don't know y        */
+        db.close();
     }
 }
