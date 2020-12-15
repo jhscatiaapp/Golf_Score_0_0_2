@@ -40,7 +40,8 @@
                 android:text="10th"
                 android:textColor="@color/white"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:clickable="true"/>
 
             <TextView
                 android:layout_width="60dp"

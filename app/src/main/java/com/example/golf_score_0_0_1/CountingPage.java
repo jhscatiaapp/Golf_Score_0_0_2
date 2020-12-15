@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class CountingPage extends AppCompatActivity {
 
     public static final String TABLE_NAME1 = "Golf_CC";
+    public static final int MAX_HOLE = 9;
 
     private TextView scoreView1, scoreView2, scoreView3, scoreView4;
     private TextView namePlayer1, namePlayer2, namePlayer3, namePlayer4;
@@ -79,6 +80,8 @@ public class CountingPage extends AppCompatActivity {
     private MyDBHelperCC myDBHelperCC = new MyDBHelperCC(this);
     private SQLiteDatabase myDBCC;
 
+    private ArrayList<String> tempHole, tempPar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +101,7 @@ public class CountingPage extends AppCompatActivity {
         myButtonSetter3.setButton();
         myButtonSetter4.setButton();
 
-        /**   Add and Remove player action   */
+        /**     Add and Remove player action     */
         buttonAddPlayer1.setOnClickListener(v -> {  clickAddPlayer(buttonAddPlayer1.getId());  });
         buttonAddPlayer2.setOnClickListener(v -> {  clickAddPlayer(buttonAddPlayer2.getId());  });
         buttonAddPlayer3.setOnClickListener(v -> {  clickAddPlayer(buttonAddPlayer3.getId());  });
@@ -118,7 +121,45 @@ public class CountingPage extends AppCompatActivity {
         buttonPlus4.setOnClickListener(v -> {  scoreView4.setText(String.valueOf(++tempScore4));  });
         buttonMinus4.setOnClickListener(v -> {  scoreView4.setText(String.valueOf(--tempScore4));  });
 
-        /**   OK button action   */
+        /**     Temporary array data handling     */
+        tempHole.add("1st");
+        tempHole.add("2nd");
+        tempHole.add("3rd");
+        tempHole.add("4th");
+        tempHole.add("5th");
+        tempHole.add("6th");
+        tempHole.add("7th");
+        tempHole.add("8th");
+        tempHole.add("9th");
+        tempHole.add("OUT");
+        tempPar.add("-");
+        tempPar.add("-");
+        tempPar.add("-");
+        tempPar.add("-");
+        tempPar.add("-");
+        tempPar.add("-");
+        tempPar.add("-");
+        tempPar.add("-");
+        tempPar.add("-");
+        tempPar.add("-");
+        ArrayList<Integer> tempRe = new ArrayList<>();
+
+/*        btnAdd.setOnClickListener(v -> {
+            textView.setText("");
+            START = Integer.parseInt(editText.getText().toString());
+
+            for (int i = START - 1; i < tempHole.size(); i++) {
+                textView.append(tempHole.get(i) + "\n");
+            }
+
+            for (int i = 0; i < START - 1; i++) {
+                textView.append(tempHole.get(i) + "\n");
+            }
+        });*/
+
+
+
+        /**     OK button action     */
         buttonOK.setOnClickListener(v -> {
             hole++;
             if (hole <= 18) {
@@ -169,6 +210,54 @@ public class CountingPage extends AppCompatActivity {
 
     /**----------------------------------------METHODS------------------------------------------*/
 
+    public void clickAddPlayer(int ID) {
+        playerDialog.setContentView(R.layout.dialog_add_player);
+
+        Button OK = playerDialog.findViewById(R.id.dlg_addPlayer_Yes);
+        Button CANCEL = playerDialog.findViewById(R.id.dlg_addPlayer_No);
+        EditText getPlayerName = playerDialog.findViewById(R.id.editText_inputPlayerName);
+
+        OK.setOnClickListener(v ->  {
+            tempPlayerName = getPlayerName.getText().toString();
+            switch (ID) {
+                case R.id.button_addName1:
+                    //playersName.set(0, tempPlayerName);
+                    namePlayer1.setText(tempPlayerName);
+                    /**   Button change   */
+                    myButtonSetter1.getName(tempPlayerName);
+                    myButtonSetter1.setButton();
+                    break;
+                case R.id.button_addName2:
+                    //playersName.set(1, tempPlayerName);
+                    namePlayer2.setText(tempPlayerName);
+                    /**   Button change   */
+                    myButtonSetter2.getName(tempPlayerName);
+                    myButtonSetter2.setButton();
+                    break;
+                case R.id.button_addName3:
+                    //playersName.set(2, tempPlayerName);
+                    namePlayer3.setText(tempPlayerName);
+                    /**   Button change   */
+                    myButtonSetter3.getName(tempPlayerName);
+                    myButtonSetter3.setButton();
+                    break;
+                case R.id.button_addName4:
+                    //playersName.set(3, tempPlayerName);
+                    namePlayer4.setText(tempPlayerName);
+                    /**   Button change   */
+                    myButtonSetter4.getName(tempPlayerName);
+                    myButtonSetter4.setButton();
+                    break;
+            }
+            playerDialog.dismiss();
+        });
+
+        CANCEL.setOnClickListener(v ->  {  playerDialog.dismiss();  });
+
+        playerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        playerDialog.show();
+    }
+
     public void clickRemovePlayer1(int ID) {
         confirmRemoveDialog.setContentView(R.layout.dialog_confirm_remove_player);
 
@@ -176,31 +265,31 @@ public class CountingPage extends AppCompatActivity {
         Button NO = confirmRemoveDialog.findViewById(R.id.dlg_confirm_No);
 
         YES.setOnClickListener(v -> {
-            tempPlayerName = null;
+            tempPlayerName = "";
             switch (ID) {
                 case R.id.button_removeName1:
-                    playersName.set(0, tempPlayerName);
+                    //playersName.set(0, tempPlayerName);
                     namePlayer1.setText(tempPlayerName);
                     /**   Button change   */
                     myButtonSetter1.getName(tempPlayerName);
                     myButtonSetter1.setButton();
                     break;
                 case R.id.button_removeName2:
-                    playersName.set(1, tempPlayerName);
+                    //playersName.set(1, tempPlayerName);
                     namePlayer2.setText(tempPlayerName);
                     /**   Button change   */
                     myButtonSetter2.getName(tempPlayerName);
                     myButtonSetter2.setButton();
                     break;
                 case R.id.button_removeName3:
-                    playersName.set(2, tempPlayerName);
+                    //playersName.set(2, tempPlayerName);
                     namePlayer3.setText(tempPlayerName);
                     /**   Button change   */
                     myButtonSetter3.getName(tempPlayerName);
                     myButtonSetter3.setButton();
                     break;
                 case R.id.button_removeName4:
-                    playersName.set(3, tempPlayerName);
+                    //playersName.set(3, tempPlayerName);
                     namePlayer4.setText(tempPlayerName);
                     /**   Button change   */
                     myButtonSetter4.getName(tempPlayerName);
@@ -217,53 +306,7 @@ public class CountingPage extends AppCompatActivity {
     }
 
 
-    public void clickAddPlayer(int ID) {
-        playerDialog.setContentView(R.layout.dialog_add_player);
 
-        Button OK = playerDialog.findViewById(R.id.dlg_addPlayer_Yes);
-        Button CANCEL = playerDialog.findViewById(R.id.dlg_addPlayer_No);
-        EditText getPlayerName = playerDialog.findViewById(R.id.editText_inputPlayerName);
-
-        OK.setOnClickListener(v ->  {
-                tempPlayerName = getPlayerName.getText().toString();
-                switch (ID) {
-                    case R.id.button_addName1:
-                        playersName.set(0, tempPlayerName);
-                        namePlayer1.setText(tempPlayerName);
-                        /**   Button change   */
-                        myButtonSetter1.getName(tempPlayerName);
-                        myButtonSetter1.setButton();
-                        break;
-                    case R.id.button_addName2:
-                        playersName.set(1, tempPlayerName);
-                        namePlayer2.setText(tempPlayerName);
-                        /**   Button change   */
-                        myButtonSetter2.getName(tempPlayerName);
-                        myButtonSetter2.setButton();
-                        break;
-                    case R.id.button_addName3:
-                        playersName.set(2, tempPlayerName);
-                        namePlayer3.setText(tempPlayerName);
-                        /**   Button change   */
-                        myButtonSetter3.getName(tempPlayerName);
-                        myButtonSetter3.setButton();
-                        break;
-                    case R.id.button_addName4:
-                        playersName.set(3, tempPlayerName);
-                        namePlayer4.setText(tempPlayerName);
-                        /**   Button change   */
-                        myButtonSetter4.getName(tempPlayerName);
-                        myButtonSetter4.setButton();
-                        break;
-                }
-                playerDialog.dismiss();
-        });
-
-        CANCEL.setOnClickListener(v ->  {  playerDialog.dismiss();  });
-
-        playerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        playerDialog.show();
-    }
 
 
 
@@ -366,6 +409,9 @@ public class CountingPage extends AppCompatActivity {
         namePlayer4 = findViewById(R.id.textView_player4);
         tempPlayerName = null;
         myDBCC = myDBHelperCC.getWritableDatabase();
+
+        tempHole = new ArrayList<>();
+        tempPar = new ArrayList<>();
 
     }
 
