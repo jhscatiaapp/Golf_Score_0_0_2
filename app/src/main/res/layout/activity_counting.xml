@@ -37,7 +37,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/text_background1"
                 android:gravity="center"
-                android:text="10th"
+                android:text="1st"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -200,7 +200,7 @@
                         android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="#0037FF"
+                        android:textColor="#85A0FF"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -276,7 +276,7 @@
                         android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="#0037FF"
+                        android:textColor="#85A0FF"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -352,7 +352,7 @@
                         android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="#0037FF"
+                        android:textColor="#85A0FF"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -428,7 +428,7 @@
                         android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="#0037FF"
+                        android:textColor="#85A0FF"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -509,7 +509,7 @@
                         android:gravity="center"
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
-                        android:text="Jeong Hyun Seung"
+                        android:hint="No Name"
                         android:textColor="#002671"
                         android:textSize="15sp"
                         android:textStyle="bold|italic" />
@@ -522,7 +522,7 @@
                         android:gravity="center"
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
-                        android:text="Jeong Hyun Seung"
+                        android:hint="No Name"
                         android:textColor="#002671"
                         android:textSize="15sp"
                         android:textStyle="bold|italic" />
@@ -535,7 +535,7 @@
                         android:gravity="center"
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
-                        android:text="Jeong Hyun Seung"
+                        android:hint="No Name"
                         android:textColor="#002671"
                         android:textSize="15sp"
                         android:textStyle="bold|italic" />
@@ -548,7 +548,7 @@
                         android:gravity="center"
                         android:paddingTop="3dp"
                         android:paddingBottom="3dp"
-                        android:text="Jeong Hyun Seung"
+                        android:hint="No Name"
                         android:textColor="#002671"
                         android:textSize="15sp"
                         android:textStyle="bold|italic" />

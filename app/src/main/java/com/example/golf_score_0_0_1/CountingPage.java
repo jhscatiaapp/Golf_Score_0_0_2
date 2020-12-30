@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,15 +17,21 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CountingPage extends AppCompatActivity {
 
     public static final String TABLE_NAME1 = "Golf_CC";
+    public static final String TABLE_NAME2 = "Golf_Total";
     public static final int MAX_HOLE = 9;
+
+    private DecimalFormat df = new DecimalFormat();
 
     private TextView scoreView1, scoreView2, scoreView3, scoreView4;
     private TextView namePlayer1, namePlayer2, namePlayer3, namePlayer4;
+    private TextView scoreName1, scoreName2, scoreName3, scoreName4;
+    private TextView mainHoleNo;
     private Button buttonOK;
 
     private Button buttonPlus1, buttonPlus2, buttonPlus3, buttonPlus4;
@@ -35,6 +42,7 @@ public class CountingPage extends AppCompatActivity {
     private ButtonSetter myButtonSetter2 = new ButtonSetter();
     private ButtonSetter myButtonSetter3 = new ButtonSetter();
     private ButtonSetter myButtonSetter4 = new ButtonSetter();
+    private Ordinal ordinal = new Ordinal();
 
     private int tempScore1 = 0;
     private int tempScore2 = 0;
@@ -75,10 +83,12 @@ public class CountingPage extends AppCompatActivity {
     private RadioButton btnPar3, btnPar4, btnPar5, btnPar6;
     private String pars, tempPlayerName = null;
     private RadioGroup radioGroup;
-    private Dialog playerDialog, confirmRemoveDialog;
+    private Dialog playerDialog, confirmRemoveDialog, holeSelectionDialog;
 
     private MyDBHelperCC myDBHelperCC = new MyDBHelperCC(this);
+    private MyDBHelperTotal myDBHelperTotal = new MyDBHelperTotal(this);
     private SQLiteDatabase myDBCC;
+    private SQLiteDatabase myDBTotal;
 
     private ArrayList<String> tempHole, tempPar;
 
@@ -112,14 +122,14 @@ public class CountingPage extends AppCompatActivity {
         buttonRemovePlayer4.setOnClickListener(v -> {  clickRemovePlayer1(buttonRemovePlayer4.getId());  });
 
         /**     Plus and Minus button action     */
-        buttonPlus1.setOnClickListener(v -> {  scoreView1.setText(String.valueOf(++tempScore1));  });
-        buttonMinus1.setOnClickListener(v -> {  scoreView1.setText(String.valueOf(--tempScore1));  });
-        buttonPlus2.setOnClickListener(v -> {  scoreView2.setText(String.valueOf(++tempScore2));  });
-        buttonMinus2.setOnClickListener(v -> {  scoreView2.setText(String.valueOf(--tempScore2));  });
-        buttonPlus3.setOnClickListener(v -> {  scoreView3.setText(String.valueOf(++tempScore3));  });
-        buttonMinus3.setOnClickListener(v -> {  scoreView3.setText(String.valueOf(--tempScore3));  });
-        buttonPlus4.setOnClickListener(v -> {  scoreView4.setText(String.valueOf(++tempScore4));  });
-        buttonMinus4.setOnClickListener(v -> {  scoreView4.setText(String.valueOf(--tempScore4));  });
+        buttonPlus1.setOnClickListener(v -> {  scoreView1.setText(dFormat(++tempScore1));  });
+        buttonMinus1.setOnClickListener(v -> {  scoreView1.setText(dFormat(--tempScore1));  });
+        buttonPlus2.setOnClickListener(v -> {  scoreView2.setText(dFormat(++tempScore2));  });
+        buttonMinus2.setOnClickListener(v -> {  scoreView2.setText(dFormat(--tempScore2));  });
+        buttonPlus3.setOnClickListener(v -> {  scoreView3.setText(dFormat(++tempScore3));  });
+        buttonMinus3.setOnClickListener(v -> {  scoreView3.setText(dFormat(--tempScore3));  });
+        buttonPlus4.setOnClickListener(v -> {  scoreView4.setText(dFormat(++tempScore4));  });
+        buttonMinus4.setOnClickListener(v -> {  scoreView4.setText(dFormat(--tempScore4));  });
 
         /**     Temporary array data handling     */
         tempHole.add("1st");
@@ -157,6 +167,11 @@ public class CountingPage extends AppCompatActivity {
             }
         });*/
 
+        /**        Hole Number Click Listener       */
+        mainHoleNo.setOnClickListener(v -> {
+            clickHole();
+        });
+
 
 
         /**     OK button action     */
@@ -183,8 +198,6 @@ public class CountingPage extends AppCompatActivity {
                         break;
                 }
 
-
-
                 arrayScore.add(tempScore1);
                 //scoreDisp.append(hole + "  " + pars + "  " + tempScore + "\n");
                 tempScore1 = 0;
@@ -208,6 +221,10 @@ public class CountingPage extends AppCompatActivity {
 
     }
 
+
+
+
+
     /**----------------------------------------METHODS------------------------------------------*/
 
     public void clickAddPlayer(int ID) {
@@ -223,6 +240,8 @@ public class CountingPage extends AppCompatActivity {
                 case R.id.button_addName1:
                     //playersName.set(0, tempPlayerName);
                     namePlayer1.setText(tempPlayerName);
+                    scoreName1.setText(tempPlayerName);
+                    scoreView1.setTextColor(Color.BLUE);
                     /**   Button change   */
                     myButtonSetter1.getName(tempPlayerName);
                     myButtonSetter1.setButton();
@@ -230,6 +249,8 @@ public class CountingPage extends AppCompatActivity {
                 case R.id.button_addName2:
                     //playersName.set(1, tempPlayerName);
                     namePlayer2.setText(tempPlayerName);
+                    scoreName2.setText(tempPlayerName);
+                    scoreView2.setTextColor(Color.BLUE);
                     /**   Button change   */
                     myButtonSetter2.getName(tempPlayerName);
                     myButtonSetter2.setButton();
@@ -237,6 +258,8 @@ public class CountingPage extends AppCompatActivity {
                 case R.id.button_addName3:
                     //playersName.set(2, tempPlayerName);
                     namePlayer3.setText(tempPlayerName);
+                    scoreName3.setText(tempPlayerName);
+                    scoreView3.setTextColor(Color.BLUE);
                     /**   Button change   */
                     myButtonSetter3.getName(tempPlayerName);
                     myButtonSetter3.setButton();
@@ -244,6 +267,8 @@ public class CountingPage extends AppCompatActivity {
                 case R.id.button_addName4:
                     //playersName.set(3, tempPlayerName);
                     namePlayer4.setText(tempPlayerName);
+                    scoreName4.setText(tempPlayerName);
+                    scoreView4.setTextColor(Color.BLUE);
                     /**   Button change   */
                     myButtonSetter4.getName(tempPlayerName);
                     myButtonSetter4.setButton();
@@ -270,6 +295,8 @@ public class CountingPage extends AppCompatActivity {
                 case R.id.button_removeName1:
                     //playersName.set(0, tempPlayerName);
                     namePlayer1.setText(tempPlayerName);
+                    scoreName1.setText(tempPlayerName);
+                    scoreView1.setTextColor(0xFF85A0FF);
                     /**   Button change   */
                     myButtonSetter1.getName(tempPlayerName);
                     myButtonSetter1.setButton();
@@ -277,6 +304,8 @@ public class CountingPage extends AppCompatActivity {
                 case R.id.button_removeName2:
                     //playersName.set(1, tempPlayerName);
                     namePlayer2.setText(tempPlayerName);
+                    scoreName2.setText(tempPlayerName);
+                    scoreView2.setTextColor(0xFF85A0FF);
                     /**   Button change   */
                     myButtonSetter2.getName(tempPlayerName);
                     myButtonSetter2.setButton();
@@ -284,6 +313,8 @@ public class CountingPage extends AppCompatActivity {
                 case R.id.button_removeName3:
                     //playersName.set(2, tempPlayerName);
                     namePlayer3.setText(tempPlayerName);
+                    scoreName3.setText(tempPlayerName);
+                    scoreView3.setTextColor(0xFF85A0FF);
                     /**   Button change   */
                     myButtonSetter3.getName(tempPlayerName);
                     myButtonSetter3.setButton();
@@ -291,6 +322,8 @@ public class CountingPage extends AppCompatActivity {
                 case R.id.button_removeName4:
                     //playersName.set(3, tempPlayerName);
                     namePlayer4.setText(tempPlayerName);
+                    scoreName4.setText(tempPlayerName);
+                    scoreView4.setTextColor(0xFF85A0FF);
                     /**   Button change   */
                     myButtonSetter4.getName(tempPlayerName);
                     myButtonSetter4.setButton();
@@ -305,14 +338,45 @@ public class CountingPage extends AppCompatActivity {
         confirmRemoveDialog.show();
     }
 
+    public void clickHole() {
+        holeSelectionDialog.setContentView(R.layout.dialog_starthole_selection);
 
+        Button OK = holeSelectionDialog.findViewById(R.id.dlg_Hole_ok);
+        Button CANCEL = holeSelectionDialog.findViewById(R.id.dlg_Hole_cancel);
 
+        OK.setOnClickListener(v -> {
+            int i = 5;
+            mainHoleNo.setText(ordinal.ordinalChange(i));
+            holeSelectionDialog.dismiss();
+        });
 
+        CANCEL.setOnClickListener(v -> {  holeSelectionDialog.dismiss();  });
+
+        holeSelectionDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        holeSelectionDialog.show();
+    }
+
+    public String dFormat(int num) {
+        if (num > 0) {
+            df = new DecimalFormat("+#");
+        } else df = new DecimalFormat("#");
+        return df.format(num);
+    }
+
+    public String parFormat(int num) {
+        df = new DecimalFormat("Par #");
+        return df.format(num);
+    }
 
 
 
     private Cursor getAllItemsCC() {
         return myDBCC.query(TABLE_NAME1, null, null, null,
+                null, null, null);
+    }
+
+    private Cursor getAllItemsTotal() {
+        return myDBTotal.query(TABLE_NAME2, null, null, null,
                 null, null, null);
     }
 
@@ -401,14 +465,23 @@ public class CountingPage extends AppCompatActivity {
         btnPar5 = findViewById(R.id.button_par_5);
         btnPar6 = findViewById(R.id.button_par_6);
         radioGroup = findViewById(R.id.rdo_grp);
+        mainHoleNo = findViewById(R.id.textView_holeNo);
+
         playerDialog = new Dialog(CountingPage.this);
         confirmRemoveDialog = new Dialog(CountingPage.this);
+        holeSelectionDialog = new Dialog(CountingPage.this);
+
         namePlayer1 = findViewById(R.id.textView_player1);
         namePlayer2 = findViewById(R.id.textView_player2);
         namePlayer3 = findViewById(R.id.textView_player3);
         namePlayer4 = findViewById(R.id.textView_player4);
+        scoreName1 = findViewById(R.id.player1Name1_score_board);
+        scoreName2 = findViewById(R.id.player1Name2_score_board);
+        scoreName3 = findViewById(R.id.player1Name3_score_board);
+        scoreName4 = findViewById(R.id.player1Name4_score_board);
         tempPlayerName = null;
         myDBCC = myDBHelperCC.getWritableDatabase();
+        myDBTotal = myDBHelperTotal.getWritableDatabase();
 
         tempHole = new ArrayList<>();
         tempPar = new ArrayList<>();

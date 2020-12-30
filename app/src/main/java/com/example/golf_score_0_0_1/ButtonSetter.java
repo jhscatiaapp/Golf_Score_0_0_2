@@ -22,7 +22,7 @@ public class ButtonSetter extends AppCompatActivity {
             mRemoveButton.setEnabled(true);
             mPlusButton.setEnabled(true);
             mMinusButton.setEnabled(true);
-            //mAddBtn.setBackgroundColor(Color.GREEN);
+            //mAddBtn.setBackground(getResources().getDrawable(R.drawable.player_change_btn));
         }
     }
 
