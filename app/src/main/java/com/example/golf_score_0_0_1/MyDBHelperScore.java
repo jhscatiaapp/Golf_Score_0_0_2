@@ -10,11 +10,8 @@ import androidx.annotation.Nullable;
 
 public class MyDBHelperScore extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "score_test02.db";
-    public static final String TABLE_NAME = "Score_Table";
-    public static final String COL_DATE = "DATE";
-    public static final String COL_CC = "CC";
-    public static final String COL_PLAYER = "PLAYER_NAME";
+    public static final String DATABASE_NAME = "Golf_Score_test.db";
+    public static final String TABLE_NAME3 = "Golf_Score";
     public static final String COL_HOLE = "HOLE";
     public static final String COL_PAR = "PAR";
     public static final String COL_SCORE1 = "SCORE1";
@@ -30,15 +27,13 @@ public class MyDBHelperScore extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (HOLE String, PAR String, SCORE1 String, " +
-                "SCORE2 String, SCORE3 String, SCORE4 String" +
-                ")");
-        //DATE String, CC String, PLAYER_NAME String,
+        db.execSQL("CREATE TABLE " + TABLE_NAME3 + " (HOLE STRING, PAR STRING, " +
+                "SCORE1 STRING, SCORE2 STRING, SCORE3 STRING, SCORE4 STRING)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME );
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3 );
         onCreate(db);
     }
 
@@ -57,7 +52,7 @@ public class MyDBHelperScore extends SQLiteOpenHelper {
         contentValues.put(COL_SCORE3, SCORE3);
         contentValues.put(COL_SCORE4, SCORE4);
 
-        long error = db.insert(TABLE_NAME, null, contentValues);
+        long error = db.insert(TABLE_NAME3, null, contentValues);
         if (error == -1)
             return false;
         else
@@ -87,7 +82,7 @@ public class MyDBHelperScore extends SQLiteOpenHelper {
     }*/
 
     public Cursor readAllData() {
-        String query = "SELECT * FROM " + TABLE_NAME;
+        String query = "SELECT * FROM " + TABLE_NAME3;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -99,11 +94,11 @@ public class MyDBHelperScore extends SQLiteOpenHelper {
 
     public Integer deleteData(String HOLE) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "HOLE = ?", new String[] {HOLE});
+        return db.delete(TABLE_NAME3, "HOLE = ?", new String[] {HOLE});
     }
 
     public void deleteAllData() {
-        String query = "DELETE FROM " + TABLE_NAME;
+        String query = "DELETE FROM " + TABLE_NAME3;
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(query);
         //db.close();

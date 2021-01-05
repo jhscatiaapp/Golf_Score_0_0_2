@@ -87,6 +87,7 @@
                         android:button="@android:color/transparent"
                         android:gravity="center"
                         android:text="4"
+                        android:checked="true"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -200,7 +201,7 @@
                         android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="#85A0FF"
+                        android:textColor="#A5A5A5"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -276,7 +277,7 @@
                         android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="#85A0FF"
+                        android:textColor="#A5A5A5"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -352,7 +353,7 @@
                         android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="#85A0FF"
+                        android:textColor="#A5A5A5"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -428,7 +429,7 @@
                         android:layout_marginRight="3dp"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="#85A0FF"
+                        android:textColor="#A5A5A5"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -566,8 +567,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="5dp"
-                android:background="#000000"
+                android:background="#DFEC70"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hole: "/>
+                <TextView
+                    android:id="@+id/temp_textView_Hole"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="hole here"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Par: "/>
+                <TextView
+                    android:id="@+id/temp_textView_Par"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="par here"/>
+
 
             </LinearLayout>
         </LinearLayout>
