@@ -50,6 +50,12 @@ public class CountingPage extends AppCompatActivity {
     private ButtonSetter myButtonSetter3 = new ButtonSetter();
     private ButtonSetter myButtonSetter4 = new ButtonSetter();
 
+    private ButtonSetter2 my2ButtonSetter2 = new ButtonSetter2();
+    private ButtonSetter2 my2ButtonSetter3 = new ButtonSetter2();
+    private ButtonSetter2 my2ButtonSetter4 = new ButtonSetter2();
+
+    private ScoreSetter scoreSetter = new ScoreSetter();
+
     private int tempScore1 = 0;
     private int tempScore2 = 0;
     private int tempScore3 = 0;
@@ -131,14 +137,20 @@ public class CountingPage extends AppCompatActivity {
         //putCCDBToArray();
 
         /**     Initialize Button     */
-        myButtonSetter1.initSetButton(tempPlayerName, buttonAddPlayer1, buttonRemovePlayer1, buttonPlus1, buttonMinus1);
-        myButtonSetter2.initSetButton(tempPlayerName, buttonAddPlayer2, buttonRemovePlayer2, buttonPlus2, buttonMinus2);
-        myButtonSetter3.initSetButton(tempPlayerName, buttonAddPlayer3, buttonRemovePlayer3, buttonPlus3, buttonMinus3);
-        myButtonSetter4.initSetButton(tempPlayerName, buttonAddPlayer4, buttonRemovePlayer4, buttonPlus4, buttonMinus4);
+        buttonOK.setEnabled(false);
+        myButtonSetter1.initSetButton(tempPlayerName, buttonAddPlayer1, buttonRemovePlayer1, buttonPlus1, buttonMinus1, countNum);
+        myButtonSetter2.initSetButton(tempPlayerName, buttonAddPlayer2, buttonRemovePlayer2, buttonPlus2, buttonMinus2, countNum);
+        myButtonSetter3.initSetButton(tempPlayerName, buttonAddPlayer3, buttonRemovePlayer3, buttonPlus3, buttonMinus3, countNum);
+        myButtonSetter4.initSetButton(tempPlayerName, buttonAddPlayer4, buttonRemovePlayer4, buttonPlus4, buttonMinus4, countNum);
         myButtonSetter1.setButton();
         myButtonSetter2.setButton();
         myButtonSetter3.setButton();
         myButtonSetter4.setButton();
+
+        my2ButtonSetter2.setButton(playerName[0], buttonAddPlayer2);
+        my2ButtonSetter3.setButton(playerName[1], buttonAddPlayer3);
+        my2ButtonSetter4.setButton(playerName[2], buttonAddPlayer4);
+
 
         /**     Add and Remove player action     */
         buttonAddPlayer1.setOnClickListener(v -> {
@@ -204,24 +216,10 @@ public class CountingPage extends AppCompatActivity {
         /**     Need to add if statement whether NEW or EXISTING hole     */
         /**     Here is for NEW game situation     */
         initNewCC();
+
         //mainScoreDisplay(holeInfo, parInfo, p1Score, p2Score, p3Score, p4Score);
 
 
-
-/*
-        btnAdd.setOnClickListener(v -> {
-            textView.setText("");
-            START = Integer.parseInt(editText.getText().toString());
-
-            for (int i = START - 1; i < tempHole.size(); i++) {
-                textView.append(tempHole.get(i) + "\n");
-            }
-
-            for (int i = 0; i < START - 1; i++) {
-                textView.append(tempHole.get(i) + "\n");
-            }
-        });
-*/
 
 
         /**     Hole Number Click Listener     */
@@ -233,8 +231,6 @@ public class CountingPage extends AppCompatActivity {
 
         /**     OK button action - NEW GAME     */
         buttonOK.setOnClickListener(v -> {
-            //ArrayList<Integer> intParInfo = new ArrayList<>();
-            //intParInfo.clear();
             String[] arrParInfo = new String[holeInfo.size()];
             String[] arrP1Score = new String[holeInfo.size()];
             String[] arrP2Score = new String[holeInfo.size()];
@@ -271,9 +267,6 @@ public class CountingPage extends AppCompatActivity {
             p3Score.set(indexNo, String.valueOf(tempScore3));
             p4Score.set(indexNo, String.valueOf(tempScore4));
 
-
-
-
             /**     Main Hole DP and OK button disabled     */
             countNum++;
             if (countNum <= 18) {
@@ -286,8 +279,8 @@ public class CountingPage extends AppCompatActivity {
                 buttonOK.setEnabled(false);
                 mainHoleNo.setText(ordinal.ordinalChange(countNum));
                 Toast.makeText(this, "Finished 18 holes", Toast.LENGTH_SHORT).show();
+                disableButtonAll(countNum);
             }
-
 
             for(int i = 0; i < holeInfo.size(); i++) {
                 arrParInfo[i] = parInfo.get(i);
@@ -303,6 +296,7 @@ public class CountingPage extends AppCompatActivity {
             p3Score = scoreSumP3.sumScore(arrP3Score);
             p4Score = scoreSumP4.sumScore(arrP4Score);
 
+
             /**     Temp Result Show  ----------------------------------   */
             tempTextViewHole.setText("");
             tempTextViewPar.setText("");
@@ -313,44 +307,50 @@ public class CountingPage extends AppCompatActivity {
             }
             /**------------------------------------------------------------*/
 
-
-
-
-            /**     Reset temp-score as 0 and text color change     */
-
-
-
-
-
-
-
-
-
-
-
-
             tempScore1 = 0;
             tempScore2 = 0;
             tempScore3 = 0;
             tempScore4 = 0;
-            scoreView1.setText(String.valueOf(tempScore1));
-            scoreViewColor(tempScore1, scoreView1);
-            scoreView2.setText(String.valueOf(tempScore2));
-            scoreViewColor(tempScore2, scoreView2);
-            scoreView3.setText(String.valueOf(tempScore3));
-            scoreViewColor(tempScore3, scoreView3);
-            scoreView4.setText(String.valueOf(tempScore4));
-            scoreViewColor(tempScore4, scoreView4);
 
+            scoreSetter.setScore(playerName[0], scoreView1);
+            scoreSetter.setScore(playerName[1], scoreView2);
+            scoreSetter.setScore(playerName[2], scoreView3);
+            scoreSetter.setScore(playerName[3], scoreView4);
+
+            if (countNum == 19) {  greyTextAll();  }
         });
 
-
     }
+
+
 
 
     /**
      * ----------------------------------------METHODS------------------------------------------
      */
+
+
+    public void greyTextAll() {
+        scoreView1.setTextColor(0xFFA5A5A5);
+        scoreView2.setTextColor(0xFFA5A5A5);
+        scoreView3.setTextColor(0xFFA5A5A5);
+        scoreView4.setTextColor(0xFFA5A5A5);
+        namePlayer1.setTextColor(0xFFA5A5A5);
+        namePlayer2.setTextColor(0xFFA5A5A5);
+        namePlayer3.setTextColor(0xFFA5A5A5);
+        namePlayer4.setTextColor(0xFFA5A5A5);
+    }
+
+    public void disableButtonAll(int num) {
+        myButtonSetter1.initSetButton(tempPlayerName, buttonAddPlayer1, buttonRemovePlayer1, buttonPlus1, buttonMinus1, num);
+        myButtonSetter2.initSetButton(tempPlayerName, buttonAddPlayer2, buttonRemovePlayer2, buttonPlus2, buttonMinus2, num);
+        myButtonSetter3.initSetButton(tempPlayerName, buttonAddPlayer3, buttonRemovePlayer3, buttonPlus3, buttonMinus3, num);
+        myButtonSetter4.initSetButton(tempPlayerName, buttonAddPlayer4, buttonRemovePlayer4, buttonPlus4, buttonMinus4, num);
+        myButtonSetter1.setButton();
+        myButtonSetter2.setButton();
+        myButtonSetter3.setButton();
+        myButtonSetter4.setButton();
+    }
 
     public void initNewCC() {
         holeInfo.clear();
@@ -476,6 +476,15 @@ public class CountingPage extends AppCompatActivity {
                     myButtonSetter4.setButton();
                     break;
             }
+
+            my2ButtonSetter2.setButton(playerName[0], buttonAddPlayer2);
+            my2ButtonSetter3.setButton(playerName[1], buttonAddPlayer3);
+            my2ButtonSetter4.setButton(playerName[2], buttonAddPlayer4);
+
+            if (playerName[0].isEmpty()) {
+                buttonOK.setEnabled(false);
+            } else buttonOK.setEnabled(true);
+
             playerDialog.dismiss();
         });
 

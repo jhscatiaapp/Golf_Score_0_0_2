@@ -5,6 +5,10 @@
         android:drawable="@drawable/player_add_btn_pressed"/>
 
     <item
+        android:state_enabled="false"
+        android:drawable="@drawable/player_add_btn_disabled"/>
+
+    <item
         android:drawable="@drawable/player_add_btn_default"/>
 
 </selector>
