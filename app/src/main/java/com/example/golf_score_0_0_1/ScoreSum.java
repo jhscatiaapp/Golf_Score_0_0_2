@@ -13,21 +13,20 @@ public class ScoreSum {
 
 
 
-    public String[] sumScore(ArrayList<String> score) {
-        String[] retList = new String[score.size()];
+    public ArrayList<String> sumScore(String[] score) {
         sumOUT = sumIN = sumTTL = 0;
         intArray.clear();
         retArray.clear();
 
-        retArray = score;
-
-        for (int i = 0; i < score.size(); i++) {
-            if (score.get(i).equals("-")) {
+        for (int i = 0; i < score.length; i++) {
+            retArray.add(i, String.valueOf(score[i]));
+            if (score[i].equals("-")) {
                 intArray.add(0);
             } else {
-                intArray.add(Integer.parseInt(score.get(i)));
+                intArray.add(Integer.parseInt(score[i]));
             }
         }
+
         for (int j = 0; j < 9; j++) {
             sumOUT = sumOUT + intArray.get(j);
         }
@@ -41,20 +40,10 @@ public class ScoreSum {
         intArray.set(19, sumIN);
         intArray.set(20, sumTTL);
 
-        for (int i = 0; i < intArray.size(); i++) {
-            retList[i] = String.valueOf(intArray.get(i));
-        }
-
-        /*retArray.set(9, String.valueOf(intArray.get(9)));
+        retArray.set(9, String.valueOf(intArray.get(9)));
         retArray.set(19, String.valueOf(intArray.get(19)));
-        retArray.set(20, String.valueOf(intArray.get(20)));*/
+        retArray.set(20, String.valueOf(intArray.get(20)));
 
-        return retList;
+        return retArray;
     }
-
-    /*intArrParInfo = scoreSum.sumScore(parInfo);
-            parInfo.set(9, String.valueOf(intArrParInfo.get(9)));
-            parInfo.set(19, String.valueOf(intArrParInfo.get(19)));
-            parInfo.set(20, String.valueOf(intArrParInfo.get(20)));*/
-
 }
