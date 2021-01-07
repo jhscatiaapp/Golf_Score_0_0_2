@@ -55,6 +55,7 @@ public class CountingPage extends AppCompatActivity {
     private ButtonSetter2 my2ButtonSetter4 = new ButtonSetter2();
 
     private ScoreSetter scoreSetter = new ScoreSetter();
+    private ScoreSetter2 scoreSetter2 = new ScoreSetter2();
 
     private int tempScore1 = 0;
     private int tempScore2 = 0;
@@ -79,9 +80,8 @@ public class CountingPage extends AppCompatActivity {
     private ArrayList<String> p4Score = new ArrayList<>();
 
     private ArrayList<Integer> arrayScore = new ArrayList<>();
-    //private ArrayList<String> playersName = new ArrayList<>();
-    private ArrayList<Integer> par = new ArrayList<>();
-    private ArrayList<String> arrCCNAme = new ArrayList<>();
+
+/*    private ArrayList<String> arrCCNAme = new ArrayList<>();
     private ArrayList<String> arrH1 = new ArrayList<>();
     private ArrayList<String> arrH2 = new ArrayList<>();
     private ArrayList<String> arrH3 = new ArrayList<>();
@@ -102,7 +102,7 @@ public class CountingPage extends AppCompatActivity {
     private ArrayList<String> arrH17 = new ArrayList<>();
     private ArrayList<String> arrH18 = new ArrayList<>();
     private ArrayList<String> arrHin = new ArrayList<>();
-    private ArrayList<String> arrHttl = new ArrayList<>();
+    private ArrayList<String> arrHttl = new ArrayList<>();*/
 
     private RadioButton btnPar3, btnPar4, btnPar5, btnPar6;
     private String pars, tempPlayerName = null;
@@ -216,18 +216,12 @@ public class CountingPage extends AppCompatActivity {
         /**     Need to add if statement whether NEW or EXISTING hole     */
         /**     Here is for NEW game situation     */
         initNewCC();
-
-        //mainScoreDisplay(holeInfo, parInfo, p1Score, p2Score, p3Score, p4Score);
-
-
-
+        mainScoreDisplay(holeInfo, parInfo, p1Score, p2Score, p3Score, p4Score);
 
         /**     Hole Number Click Listener     */
         mainHoleNo.setOnClickListener(v -> {
             clickHole();
         });
-
-
 
         /**     OK button action - NEW GAME     */
         buttonOK.setOnClickListener(v -> {
@@ -262,10 +256,12 @@ public class CountingPage extends AppCompatActivity {
             }
 
             /**     Put score and calculate OUT/IN/TTL     */
-            p1Score.set(indexNo, String.valueOf(tempScore1));
-            p2Score.set(indexNo, String.valueOf(tempScore2));
-            p3Score.set(indexNo, String.valueOf(tempScore3));
-            p4Score.set(indexNo, String.valueOf(tempScore4));
+            p1Score.set(indexNo, scoreSetter2.setScore(playerName[0], tempScore1));
+            p2Score.set(indexNo, scoreSetter2.setScore(playerName[1], tempScore2));
+            p3Score.set(indexNo, scoreSetter2.setScore(playerName[2], tempScore3));
+            p4Score.set(indexNo, scoreSetter2.setScore(playerName[3], tempScore4));
+
+
 
             /**     Main Hole DP and OK button disabled     */
             countNum++;
@@ -296,17 +292,21 @@ public class CountingPage extends AppCompatActivity {
             p3Score = scoreSumP3.sumScore(arrP3Score);
             p4Score = scoreSumP4.sumScore(arrP4Score);
 
+            mainScoreDisplay(holeInfo, parInfo, p1Score, p2Score, p3Score, p4Score);
 
-            /**     Temp Result Show  ----------------------------------   */
+
+/*            *//**     Temp Result Show  ----------------------------------   *//*
             tempTextViewHole.setText("");
             tempTextViewPar.setText("");
 
             for (int i = 0; i < holeInfo.size(); i++) {
                 tempTextViewHole.append(holeInfo.get(i) + " ");
-                tempTextViewPar.append(i + 1 + p1Score.get(i) + " ");
+                tempTextViewPar.append(i + 1 + p2Score.get(i) + " ");
             }
-            /**------------------------------------------------------------*/
+            *//**------------------------------------------------------------*/
 
+
+            /**     After OK button will set score as '0'     */
             tempScore1 = 0;
             tempScore2 = 0;
             tempScore3 = 0;
@@ -382,13 +382,13 @@ public class CountingPage extends AppCompatActivity {
 
     }
 
-/*    public void mainScoreDisplay(ArrayList<String> holeArr, ArrayList<String> parArr,
+    public void mainScoreDisplay(ArrayList<String> holeArr, ArrayList<String> parArr,
                                  ArrayList<String> p1ScoreArr, ArrayList<String> p2ScoreArr,
                                  ArrayList<String> p3ScoreArr, ArrayList<String> p4ScoreArr) {
 
         putScoreArraytoDB(holeArr, parArr, p1ScoreArr, p2ScoreArr, p3ScoreArr, p4ScoreArr);
 
-        adapter = new myAdapter(this, getAllItemsTotal());
+        adapter = new myAdapter(this, getAllItemsScore());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter.notifyDataSetChanged();
@@ -401,33 +401,12 @@ public class CountingPage extends AppCompatActivity {
 
         myDBHelperScore.deleteAllData();
 
-        int sumParOut = 0;
-        int sumScoreOut1 = 0;
-        for (int j = 0; j < 9; j++) {
-            sumParOut = Integer.parseInt(parArr.get(j)) + sumParOut;
-            sumScoreOut1 = Integer.parseInt(p1ScoreArr.get(j)) + sumScoreOut1;
-        }
-        parArr.set(9, String.valueOf(sumParOut));
-        p1ScoreArr.set(9, String.valueOf(sumScoreOut1));
-
-
-        int sumParIn = 0;
-        int sumScoreIn1 = 0;
-        for (int j = 10; j < 19; j++) {
-            sumParIn = parArr.get(j) + sumParIn;
-            sumScoreIn1 = scorearr.get(j) + sumScoreIn1;
-        }
-        pararr.set(19, sumParIn);
-        scorearr.set(19, sumScoreIn1);
-
-        pararr.set(20, sumParIn + sumParOut);
-        scorearr.set(20, sumScoreIn1 + sumScoreOut1);
-
-        for (int i = 0; i < holearr.size(); i++) {
-            myDBHelper.saveToDB(String.valueOf(holearr.get(i)), pararr.get(i), scorearr.get(i));
+        for (int i = 0; i < holeArr.size(); i++) {
+            myDBHelperScore.saveToDB(holeArr.get(i), parArr.get(i), p1ScoreArr.get(i),
+                    p2ScoreArr.get(i), p3ScoreArr.get(i), p4ScoreArr.get(i));
         }
 
-    }*/
+    }
 
     public void clickAddPlayer(int ID) {
         playerDialog.setContentView(R.layout.dialog_add_player);
@@ -506,42 +485,46 @@ public class CountingPage extends AppCompatActivity {
             tempPlayerName = "";
             switch (ID) {
                 case R.id.button_removeName1:
-                    //playersName.set(0, tempPlayerName);
+                    playerName[0] = tempPlayerName;
                     namePlayer1.setText(tempPlayerName);
                     scoreName1.setText(tempPlayerName);
-                    scoreView1.setTextColor(0xFF85A0FF);
+                    scoreView1.setTextColor(0xFFA5A5A5);
                     /**   Button change   */
                     myButtonSetter1.getName(tempPlayerName);
                     myButtonSetter1.setButton();
                     break;
                 case R.id.button_removeName2:
-                    //playersName.set(1, tempPlayerName);
+                    playerName[1] = tempPlayerName;
                     namePlayer2.setText(tempPlayerName);
                     scoreName2.setText(tempPlayerName);
-                    scoreView2.setTextColor(0xFF85A0FF);
+                    scoreView2.setTextColor(0xFFA5A5A5);
                     /**   Button change   */
                     myButtonSetter2.getName(tempPlayerName);
                     myButtonSetter2.setButton();
                     break;
                 case R.id.button_removeName3:
-                    //playersName.set(2, tempPlayerName);
+                    playerName[2] = tempPlayerName;
                     namePlayer3.setText(tempPlayerName);
                     scoreName3.setText(tempPlayerName);
-                    scoreView3.setTextColor(0xFF85A0FF);
+                    scoreView3.setTextColor(0xFFA5A5A5);
                     /**   Button change   */
                     myButtonSetter3.getName(tempPlayerName);
                     myButtonSetter3.setButton();
                     break;
                 case R.id.button_removeName4:
-                    //playersName.set(3, tempPlayerName);
+                    playerName[3] = tempPlayerName;
                     namePlayer4.setText(tempPlayerName);
                     scoreName4.setText(tempPlayerName);
-                    scoreView4.setTextColor(0xFF85A0FF);
+                    scoreView4.setTextColor(0xFFA5A5A5);
                     /**   Button change   */
                     myButtonSetter4.getName(tempPlayerName);
                     myButtonSetter4.setButton();
                     break;
             }
+
+            my2ButtonSetter2.setButton(playerName[0], buttonAddPlayer2);
+            my2ButtonSetter3.setButton(playerName[1], buttonAddPlayer3);
+            my2ButtonSetter4.setButton(playerName[2], buttonAddPlayer4);
             confirmRemoveDialog.dismiss();
         });
 
@@ -678,12 +661,12 @@ public class CountingPage extends AppCompatActivity {
     }
 
     private Cursor getAllItemsScore() {
-        return myDBCC.query(TABLE_NAME3, null, null, null,
+        return myDBScore.query(TABLE_NAME3, null, null, null,
                 null, null, null);
     }
 
 
-    private void putCCDBToArray() {
+    /*private void putCCDBToArray() {
         arrCCNAme.clear();
         arrH1.clear();
         arrH2.clear();
@@ -733,7 +716,7 @@ public class CountingPage extends AppCompatActivity {
             arrHin.add(cursor.getString(20));
             arrHttl.add(cursor.getString(21));
         }
-    }
+    }*/
 
     public void variablesSetter() {
         scoreView1 = findViewById(R.id.view_score1);
@@ -754,8 +737,7 @@ public class CountingPage extends AppCompatActivity {
 
         buttonOK = findViewById(R.id.button_ok);
         arrayScore.clear();
-        //playersName.clear();
-        par.clear();
+
         buttonAddPlayer1 = findViewById(R.id.button_addName1);
         buttonAddPlayer2 = findViewById(R.id.button_addName2);
         buttonAddPlayer3 = findViewById(R.id.button_addName3);
@@ -787,6 +769,8 @@ public class CountingPage extends AppCompatActivity {
         myDBCC = myDBHelperCC.getWritableDatabase();
         myDBTotal = myDBHelperTotal.getWritableDatabase();
         myDBScore = myDBHelperScore.getWritableDatabase();
+
+        recyclerView = findViewById(R.id.recyclerView);
 
 
     }

@@ -2,6 +2,7 @@ package com.example.golf_score_0_0_1;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,10 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
 
     public static final String COL_HOLE = "HOLE";
     public static final String COL_PAR = "PAR";
-    public static final String COL_SCORE = "SCORE";
+    public static final String COL_SCORE1 = "SCORE1";
+    public static final String COL_SCORE2 = "SCORE2";
+    public static final String COL_SCORE3 = "SCORE3";
+    public static final String COL_SCORE4 = "SCORE4";
 
     private OnItemClickListener mListener;
 
@@ -48,11 +52,29 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
         if (!mCursor.moveToPosition(position)) {
             return;
         }
-        String strHole = mCursor.getString(mCursor.getColumnIndex(COL_HOLE));
-        int intPar = mCursor.getInt(mCursor.getColumnIndex(COL_PAR));
-        int intScore = mCursor.getInt(mCursor.getColumnIndex(COL_SCORE));
+        String holeInfo = mCursor.getString(mCursor.getColumnIndex(COL_HOLE));
+        String parInfo = mCursor.getString(mCursor.getColumnIndex(COL_PAR));
+        String p1Score = mCursor.getString(mCursor.getColumnIndex(COL_SCORE1));
+        String p2Score = mCursor.getString(mCursor.getColumnIndex(COL_SCORE2));
+        String p3Score = mCursor.getString(mCursor.getColumnIndex(COL_SCORE3));
+        String p4Score = mCursor.getString(mCursor.getColumnIndex(COL_SCORE4));
 
-/*        if (position == 9 || position == 19 || position == 20) {
+/*        if (position == 9*//* || position == 19 || position == 20*//*) {
+            holder.holeView.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
+            holder.holeView.setTextColor(Color.WHITE);
+            holder.parView.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
+            holder.parView.setTextColor(Color.BLACK);
+            holder.scoreView1.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
+            holder.scoreView1.setTextColor(Color.BLACK);
+            holder.scoreView2.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
+            holder.scoreView2.setTextColor(Color.BLACK);
+            holder.scoreView3.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
+            holder.scoreView3.setTextColor(Color.BLACK);
+            holder.scoreView4.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
+            holder.scoreView4.setTextColor(Color.BLACK);
+        }
+
+        if (position == 19) {
             holder.holeView.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
             holder.holeView.setTextColor(Color.WHITE);
             holder.parView.setBackground(mContext.getResources().getDrawable(R.drawable.in_out_ttl_border));
@@ -67,16 +89,18 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
             holder.scoreView4.setTextColor(Color.BLACK);
         }*/
 
-        holder.holeView.setText(strHole);
-        holder.parView.setText(String.valueOf(intPar));
-        holder.scoreView1.setText(String.valueOf(intScore));
-        holder.scoreView2.setText(String.valueOf(intScore));
-        holder.scoreView3.setText(String.valueOf(intScore));
-        holder.scoreView4.setText(String.valueOf(intScore));
+        holder.holeView.setText(holeInfo);
+        holder.parView.setText(parInfo);
 
-        long id = mCursor.getLong(mCursor.getColumnIndex(COL_SCORE));
+        holder.scoreView1.setText(p1Score);
+        holder.scoreView2.setText(p2Score);
+        holder.scoreView3.setText(p3Score);
+        holder.scoreView4.setText(p4Score);
+
+        long id = mCursor.getLong(mCursor.getColumnIndex(COL_HOLE));
         holder.itemView.setTag(id);
     }
+
 
     @Override
     public int getItemCount() {
@@ -124,5 +148,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myViewHolder> {
             notifyDataSetChanged();
         }
     }
+
+
 
 }
