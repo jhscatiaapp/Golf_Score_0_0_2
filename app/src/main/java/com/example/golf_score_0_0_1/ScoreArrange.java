@@ -2,11 +2,11 @@ package com.example.golf_score_0_0_1;
 
 public class ScoreArrange {
     private String mName;
-    private int mScore;
+    private String mScore;
     private String mThruHole;
     private String mShot;
 
-    public ScoreArrange(String mName, int mScore, String mThruHole, String mShot) {
+    public ScoreArrange(String mName, String mScore, String mThruHole, String mShot) {
         this.mName = mName;
         this.mScore = mScore;
         this.mThruHole = mThruHole;
@@ -21,11 +21,11 @@ public class ScoreArrange {
         this.mName = mName;
     }
 
-    public int getmScore() {
+    public String getmScore() {
         return mScore;
     }
 
-    public void setmScore(int mScore) {
+    public void setmScore(String mScore) {
         this.mScore = mScore;
     }
 

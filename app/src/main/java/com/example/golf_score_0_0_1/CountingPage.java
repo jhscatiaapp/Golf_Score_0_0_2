@@ -299,6 +299,7 @@ public class CountingPage extends AppCompatActivity {
             p3Score = scoreSumP3.sumScore(arrP3Score);
             p4Score = scoreSumP4.sumScore(arrP4Score);
 
+            /**     Score board display     */
             mainScoreDisplay(holeInfo, parInfo, p1Score, p2Score, p3Score, p4Score);
 
             /**     Rearranging score     */
@@ -345,15 +346,10 @@ public class CountingPage extends AppCompatActivity {
             tempTextViewHole.setText("");
             tempTextViewPar.setText("");
 
-            /*for (int i = 0; i < holeInfo.size(); i++) {
-                tempTextViewHole.append(p1Score.get(i) + " ");
-            }*/
+            for (int i = 0; i < 4; i++) {
+                tempTextViewHole.append(myList.get(i).getmName() + " " + rankScore.get(i) + " / ");
+            }
 
-/*            for (int i = 0; i < 4; i++) {
-                tempTextViewHole.append(myList.get(i).getmName() + " " + myList.get(i).getmScore() +
-                        " " + myList.get(i).getmThruHole() + " " + myList.get(i).getmShot());
-                //tempTextViewPar.append(playerName[indexNo.get(i)] + " ");
-            }*/
             /**------------------------------------------------------------*/
 
 
@@ -386,33 +382,64 @@ public class CountingPage extends AppCompatActivity {
 
 
     public void summaryScoreArrange() {
-        ArrayList<Integer> sumScore = new ArrayList<>();
+        ArrayList<String> sumScore = new ArrayList<>();
         myList.clear();
+        rankScore.clear();
         sumScore.clear();
 
+        sumScore.add(p1Score.get(20));
+        sumScore.add(p2Score.get(20));
+        sumScore.add(p3Score.get(20));
+        sumScore.add(p4Score.get(20));
+
+        for (int i = 0; i < 4; i++) {
+            myList.add(new ScoreArrange(playerName[i], sumScore.get(i), arrayThru.get(i), shot.get(i)));
+        }
+
+        myList = sortASC(myList);
+
+        rankScore.add(0, "1");
+
+        for (int i = 0; i < 3; i++) {
+            String nextRank = " ";
+            for (int j = i + 1; j < 4; j++) {
+                if (myList.get(j).getmScore() == "-") {
+                    nextRank = "-";
+                } else {
+                    if (myList.get(i).getmScore() == myList.get(j).getmScore()) {
+                        nextRank = " ";
+                    } else {
+                        nextRank = String.valueOf((i + 2));
+                    }
+                }
+                rankScore.add(i + 1, nextRank);
+                break;
+            }
+        }
 
 
-        sumScore.add(Integer.parseInt(p1Score.get(20)));
-        sumScore.add(Integer.parseInt(p2Score.get(20)));
-        sumScore.add(Integer.parseInt(p3Score.get(20)));
-        sumScore.add(Integer.parseInt(p4Score.get(20)));
-
-/*        for (int i = 0; i < 4; i++) {
-            sumScore.add();
-            myList.add(new ScoreArrange(playerName[i], sumScore.get(i)));
-
-
-        }*/
     }
 
     public static ArrayList<ScoreArrange> sortASC(ArrayList<ScoreArrange> list) {
         Collections.sort(list, new Comparator<ScoreArrange>() {
             @Override
             public int compare(ScoreArrange o1, ScoreArrange o2) {
-                if (o1.getmScore() > o2.getmScore()) {  return 1;  }
-                else if (o1.getmScore() == o2.getmScore()) {
+                int temp1 = 0;
+                int temp2 = 0;
+
+                if (o1.getmScore() == "-") temp1 = 1000;
+                else if (o2.getmScore() == "-") temp2 = 1000;
+                else {
+                    temp1 = Integer.parseInt(o1.getmScore());
+                    temp2 = Integer.parseInt(o2.getmScore());
+                }
+                if (temp1 > temp2) {
+                    return 1;
+                } else if (o1.getmScore() == o2.getmScore()) {
                     return o1.getmName().compareTo(o2.getmName());
-                } else {  return -1;  }
+                } else {
+                    return -1;
+                }
             }
         });
         return list;
