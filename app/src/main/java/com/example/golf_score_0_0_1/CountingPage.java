@@ -2,6 +2,7 @@ package com.example.golf_score_0_0_1;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -21,15 +22,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CountingPage extends AppCompatActivity {
 
     public static final String TABLE_NAME1 = "Golf_CC";
     public static final String TABLE_NAME2 = "Golf_Total";
     public static final String TABLE_NAME3 = "Golf_Score";
-    public static final int MAX_HOLE = 9;
 
     private DecimalFormat df = new DecimalFormat();
     private Ordinal ordinal = new Ordinal();
@@ -61,8 +65,6 @@ public class CountingPage extends AppCompatActivity {
     private int tempScore2 = 0;
     private int tempScore3 = 0;
     private int tempScore4 = 0;
-    private int hole = 0;
-    private int sumScore = 0;
     private int startHoleNo = 1;
     private int indexNo = 0;
     private int countNum = 1;
@@ -73,13 +75,18 @@ public class CountingPage extends AppCompatActivity {
 
     private ArrayList<String> holeInfo = new ArrayList<>();
     private ArrayList<String> parInfo = new ArrayList<>();
-    private ArrayList<String> parInfo1 = new ArrayList<>();
     private ArrayList<String> p1Score = new ArrayList<>();
     private ArrayList<String> p2Score = new ArrayList<>();
     private ArrayList<String> p3Score = new ArrayList<>();
     private ArrayList<String> p4Score = new ArrayList<>();
+    private ArrayList<String> rankScore = new ArrayList<>();
+    private ArrayList<String> scoreArrange = new ArrayList<>();
+    private ArrayList<String> shot = new ArrayList<>();
+    private ArrayList<String> arrayThru = new ArrayList<>();
 
     private ArrayList<Integer> arrayScore = new ArrayList<>();
+
+    private ArrayList<ScoreArrange> myList = new ArrayList<>();
 
 /*    private ArrayList<String> arrCCNAme = new ArrayList<>();
     private ArrayList<String> arrH1 = new ArrayList<>();
@@ -130,7 +137,9 @@ public class CountingPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_counting);
+
 
         /**     Initialize variables     */
         variablesSetter();
@@ -212,7 +221,6 @@ public class CountingPage extends AppCompatActivity {
             scoreViewColor(tempScore4, scoreView4);
         });
 
-        /**     Main score board display     */
         /**     Need to add if statement whether NEW or EXISTING hole     */
         /**     Here is for NEW game situation     */
         initNewCC();
@@ -262,7 +270,6 @@ public class CountingPage extends AppCompatActivity {
             p4Score.set(indexNo, scoreSetter2.setScore(playerName[3], tempScore4));
 
 
-
             /**     Main Hole DP and OK button disabled     */
             countNum++;
             if (countNum <= 18) {
@@ -278,6 +285,7 @@ public class CountingPage extends AppCompatActivity {
                 disableButtonAll(countNum);
             }
 
+            /**     Score calculate and feed back to variables     */
             for(int i = 0; i < holeInfo.size(); i++) {
                 arrParInfo[i] = parInfo.get(i);
                 arrP1Score[i] = p1Score.get(i);
@@ -285,7 +293,6 @@ public class CountingPage extends AppCompatActivity {
                 arrP3Score[i] = p3Score.get(i);
                 arrP4Score[i] = p4Score.get(i);
             }
-
             parInfo = scoreSumPar.sumScore(arrParInfo);
             p1Score = scoreSumP1.sumScore(arrP1Score);
             p2Score = scoreSumP2.sumScore(arrP2Score);
@@ -294,16 +301,60 @@ public class CountingPage extends AppCompatActivity {
 
             mainScoreDisplay(holeInfo, parInfo, p1Score, p2Score, p3Score, p4Score);
 
+            /**     Rearranging score     */
+            arrayThru.clear();
+            rankScore.clear();
+            shot.clear();
+            myList.clear();
+            scoreArrange.clear();
+/*            scoreArrange.set(0, scoreSetter2.setScore(playerName[0], Integer.parseInt(p1Score.get(20))));
+            scoreArrange.set(1, scoreSetter2.setScore(playerName[1], Integer.parseInt(p2Score.get(20))));
+            scoreArrange.set(2, scoreSetter2.setScore(playerName[2], Integer.parseInt(p3Score.get(20))));
+            scoreArrange.set(3, scoreSetter2.setScore(playerName[3], Integer.parseInt(p4Score.get(20))));*/
 
-/*            *//**     Temp Result Show  ----------------------------------   *//*
+            scoreArrange.add(0, p1Score.get(20));
+            scoreArrange.add(1, p2Score.get(20));
+            scoreArrange.add(2, p3Score.get(20));
+            scoreArrange.add(3, p4Score.get(20));
+
+/*            for (int i = 0; i < 4; i++) {
+                int intScore = 0;
+                int intShot = 0;
+                intScore = Integer.parseInt(rankScore.get(i));
+                intShot = intScore + Integer.parseInt(parInfo.get(20));
+
+                arrayThru.add(String.valueOf(countNum - 1));
+                shot.add(String.valueOf(intShot));*/
+/*                if (scoreArrange.get(i) == "-") {
+                    rankScore.add("1000");
+                } else rankScore.add(scoreArrange.get(i));*/
+                // 디스플레이는 scoreArrange로 해야 '-' 표현
+                // rankScore에는 플레이어 없을경우 임의 1000점 부여 -> 순위권 밖으로 유도
+
+                //myList.add(new ScoreArrange(playerName[i], Integer.parseInt(scoreArrange.get(i)), arrayThru.get(i), shot.get(i)));
+           // }
+
+            //myList = sortASC(myList);
+
+            //summaryScoreDiaplay(summaryrankScore, playerName, p1Score, p2Score, p3Score, p4Score);
+
+
+
+
+            /**     Temp Result Show  ----------------------------------   */
             tempTextViewHole.setText("");
             tempTextViewPar.setText("");
 
-            for (int i = 0; i < holeInfo.size(); i++) {
-                tempTextViewHole.append(holeInfo.get(i) + " ");
-                tempTextViewPar.append(i + 1 + p2Score.get(i) + " ");
-            }
-            *//**------------------------------------------------------------*/
+            /*for (int i = 0; i < holeInfo.size(); i++) {
+                tempTextViewHole.append(p1Score.get(i) + " ");
+            }*/
+
+/*            for (int i = 0; i < 4; i++) {
+                tempTextViewHole.append(myList.get(i).getmName() + " " + myList.get(i).getmScore() +
+                        " " + myList.get(i).getmThruHole() + " " + myList.get(i).getmShot());
+                //tempTextViewPar.append(playerName[indexNo.get(i)] + " ");
+            }*/
+            /**------------------------------------------------------------*/
 
 
             /**     After OK button will set score as '0'     */
@@ -320,6 +371,10 @@ public class CountingPage extends AppCompatActivity {
             if (countNum == 19) {  greyTextAll();  }
         });
 
+
+
+
+
     }
 
 
@@ -329,6 +384,39 @@ public class CountingPage extends AppCompatActivity {
      * ----------------------------------------METHODS------------------------------------------
      */
 
+
+    public void summaryScoreArrange() {
+        ArrayList<Integer> sumScore = new ArrayList<>();
+        myList.clear();
+        sumScore.clear();
+
+
+
+        sumScore.add(Integer.parseInt(p1Score.get(20)));
+        sumScore.add(Integer.parseInt(p2Score.get(20)));
+        sumScore.add(Integer.parseInt(p3Score.get(20)));
+        sumScore.add(Integer.parseInt(p4Score.get(20)));
+
+/*        for (int i = 0; i < 4; i++) {
+            sumScore.add();
+            myList.add(new ScoreArrange(playerName[i], sumScore.get(i)));
+
+
+        }*/
+    }
+
+    public static ArrayList<ScoreArrange> sortASC(ArrayList<ScoreArrange> list) {
+        Collections.sort(list, new Comparator<ScoreArrange>() {
+            @Override
+            public int compare(ScoreArrange o1, ScoreArrange o2) {
+                if (o1.getmScore() > o2.getmScore()) {  return 1;  }
+                else if (o1.getmScore() == o2.getmScore()) {
+                    return o1.getmName().compareTo(o2.getmName());
+                } else {  return -1;  }
+            }
+        });
+        return list;
+    }
 
     public void greyTextAll() {
         scoreView1.setTextColor(0xFFA5A5A5);
