@@ -34,6 +34,7 @@ public class CountingPage extends AppCompatActivity {
     public static final String TABLE_NAME1 = "Golf_CC";
     public static final String TABLE_NAME2 = "Golf_Total";
     public static final String TABLE_NAME3 = "Golf_Score";
+    public static final String TABLE_NAME4 = "Rank_Table";
 
     private DecimalFormat df = new DecimalFormat();
     private Ordinal ordinal = new Ordinal();
@@ -83,33 +84,11 @@ public class CountingPage extends AppCompatActivity {
     private ArrayList<String> scoreArrange = new ArrayList<>();
     private ArrayList<String> shot = new ArrayList<>();
     private ArrayList<String> arrayThru = new ArrayList<>();
+    private ArrayList<String> player = new ArrayList<>();
 
     private ArrayList<Integer> arrayScore = new ArrayList<>();
 
     private ArrayList<ScoreArrange> myList = new ArrayList<>();
-
-/*    private ArrayList<String> arrCCNAme = new ArrayList<>();
-    private ArrayList<String> arrH1 = new ArrayList<>();
-    private ArrayList<String> arrH2 = new ArrayList<>();
-    private ArrayList<String> arrH3 = new ArrayList<>();
-    private ArrayList<String> arrH4 = new ArrayList<>();
-    private ArrayList<String> arrH5 = new ArrayList<>();
-    private ArrayList<String> arrH6 = new ArrayList<>();
-    private ArrayList<String> arrH7 = new ArrayList<>();
-    private ArrayList<String> arrH8 = new ArrayList<>();
-    private ArrayList<String> arrH9 = new ArrayList<>();
-    private ArrayList<String> arrHout = new ArrayList<>();
-    private ArrayList<String> arrH10 = new ArrayList<>();
-    private ArrayList<String> arrH11 = new ArrayList<>();
-    private ArrayList<String> arrH12 = new ArrayList<>();
-    private ArrayList<String> arrH13 = new ArrayList<>();
-    private ArrayList<String> arrH14 = new ArrayList<>();
-    private ArrayList<String> arrH15 = new ArrayList<>();
-    private ArrayList<String> arrH16 = new ArrayList<>();
-    private ArrayList<String> arrH17 = new ArrayList<>();
-    private ArrayList<String> arrH18 = new ArrayList<>();
-    private ArrayList<String> arrHin = new ArrayList<>();
-    private ArrayList<String> arrHttl = new ArrayList<>();*/
 
     private RadioButton btnPar3, btnPar4, btnPar5, btnPar6;
     private String pars, tempPlayerName = null;
@@ -122,16 +101,21 @@ public class CountingPage extends AppCompatActivity {
     private MyDBHelperCC myDBHelperCC = new MyDBHelperCC(this);
     private MyDBHelperTotal myDBHelperTotal = new MyDBHelperTotal(this);
     private MyDBHelperScore myDBHelperScore = new MyDBHelperScore(this);
+    private MyDBHelperRank myDBHelperRank = new MyDBHelperRank(this);
     private SQLiteDatabase myDBCC;
     private SQLiteDatabase myDBTotal;
     private SQLiteDatabase myDBScore;
+    private SQLiteDatabase myDBRank;
+
     private myAdapter adapter;
+    private myAdapterRank adapterRank;
     private ScoreSum scoreSumPar = new ScoreSum();
     private ScoreSum scoreSumP1 = new ScoreSum();
     private ScoreSum scoreSumP2 = new ScoreSum();
     private ScoreSum scoreSumP3 = new ScoreSum();
     private ScoreSum scoreSumP4 = new ScoreSum();
     private RecyclerView recyclerView;
+    private RecyclerView recyclerViewRank;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -303,52 +287,33 @@ public class CountingPage extends AppCompatActivity {
             mainScoreDisplay(holeInfo, parInfo, p1Score, p2Score, p3Score, p4Score);
 
             /**     Rearranging score     */
-            arrayThru.clear();
-            rankScore.clear();
+            summaryScoreArrange();
+            ArrayList<String> score = new ArrayList<>();
+            ArrayList<String> thru = new ArrayList<>();
+            ArrayList<String> shot = new ArrayList<>();
+            ArrayList<String> arrangedPlayer = new ArrayList<>();
+            score.clear();
+            thru.clear();
             shot.clear();
-            myList.clear();
-            scoreArrange.clear();
-/*            scoreArrange.set(0, scoreSetter2.setScore(playerName[0], Integer.parseInt(p1Score.get(20))));
-            scoreArrange.set(1, scoreSetter2.setScore(playerName[1], Integer.parseInt(p2Score.get(20))));
-            scoreArrange.set(2, scoreSetter2.setScore(playerName[2], Integer.parseInt(p3Score.get(20))));
-            scoreArrange.set(3, scoreSetter2.setScore(playerName[3], Integer.parseInt(p4Score.get(20))));*/
-
-            scoreArrange.add(0, p1Score.get(20));
-            scoreArrange.add(1, p2Score.get(20));
-            scoreArrange.add(2, p3Score.get(20));
-            scoreArrange.add(3, p4Score.get(20));
-
-/*            for (int i = 0; i < 4; i++) {
-                int intScore = 0;
-                int intShot = 0;
-                intScore = Integer.parseInt(rankScore.get(i));
-                intShot = intScore + Integer.parseInt(parInfo.get(20));
-
-                arrayThru.add(String.valueOf(countNum - 1));
-                shot.add(String.valueOf(intShot));*/
-/*                if (scoreArrange.get(i) == "-") {
-                    rankScore.add("1000");
-                } else rankScore.add(scoreArrange.get(i));*/
-                // 디스플레이는 scoreArrange로 해야 '-' 표현
-                // rankScore에는 플레이어 없을경우 임의 1000점 부여 -> 순위권 밖으로 유도
-
-                //myList.add(new ScoreArrange(playerName[i], Integer.parseInt(scoreArrange.get(i)), arrayThru.get(i), shot.get(i)));
-           // }
-
-            //myList = sortASC(myList);
-
-            //summaryScoreDiaplay(summaryrankScore, playerName, p1Score, p2Score, p3Score, p4Score);
-
-
+            arrangedPlayer.clear();
+            for (int i = 0; i < 4; i++) {
+                arrangedPlayer.add(myList.get(i).getmName());
+                score.add(myList.get(i).getmScore());
+                thru.add(myList.get(i).getmThruHole());
+                shot.add(myList.get(i).getmShot());
+            }
+            rankScoreDisplay(rankScore, arrangedPlayer, score, thru, shot);
 
 
             /**     Temp Result Show  ----------------------------------   */
+/*
             tempTextViewHole.setText("");
             tempTextViewPar.setText("");
 
             for (int i = 0; i < 4; i++) {
                 tempTextViewHole.append(myList.get(i).getmName() + " " + rankScore.get(i) + " / ");
             }
+*/
 
             /**------------------------------------------------------------*/
 
@@ -382,18 +347,31 @@ public class CountingPage extends AppCompatActivity {
 
 
     public void summaryScoreArrange() {
-        ArrayList<String> sumScore = new ArrayList<>();
+        ArrayList<String> summScore = new ArrayList<>();
         myList.clear();
         rankScore.clear();
-        sumScore.clear();
+        summScore.clear();
+        arrayThru.clear();
+        shot.clear();
+        player.clear();
 
-        sumScore.add(p1Score.get(20));
-        sumScore.add(p2Score.get(20));
-        sumScore.add(p3Score.get(20));
-        sumScore.add(p4Score.get(20));
+        summScore.add(p1Score.get(20));
+        summScore.add(p2Score.get(20));
+        summScore.add(p3Score.get(20));
+        summScore.add(p4Score.get(20));
 
         for (int i = 0; i < 4; i++) {
-            myList.add(new ScoreArrange(playerName[i], sumScore.get(i), arrayThru.get(i), shot.get(i)));
+            arrayThru.add(String.valueOf(countNum-1));
+            int temp1 = Integer.parseInt(parInfo.get(20));
+            int temp2 = Integer.parseInt(summScore.get(i));
+            shot.add(String.valueOf(temp1 + temp2));
+            if (playerName[i] == null || playerName[i] == "" || playerName[i] == " ") {
+                player.add("-");
+                summScore.set(i, "-");
+                arrayThru.set(i, "-");
+                shot.set(i, "-");
+            } else player.add(playerName[i]);
+            myList.add(new ScoreArrange(player.get(i), summScore.get(i), arrayThru.get(i), shot.get(i)));
         }
 
         myList = sortASC(myList);
@@ -416,8 +394,6 @@ public class CountingPage extends AppCompatActivity {
                 break;
             }
         }
-
-
     }
 
     public static ArrayList<ScoreArrange> sortASC(ArrayList<ScoreArrange> list) {
@@ -433,6 +409,7 @@ public class CountingPage extends AppCompatActivity {
                     temp1 = Integer.parseInt(o1.getmScore());
                     temp2 = Integer.parseInt(o2.getmScore());
                 }
+
                 if (temp1 > temp2) {
                     return 1;
                 } else if (o1.getmScore() == o2.getmScore()) {
@@ -510,15 +487,40 @@ public class CountingPage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    public void rankScoreDisplay(ArrayList<String> rankArr, ArrayList<String> playerArr,
+                                 ArrayList<String> scoreArr, ArrayList<String> thruArr,
+                                 ArrayList<String> shotArr) {
+
+        putScoreArraytoRankDB(rankArr, playerArr, scoreArr, thruArr, shotArr);
+
+        adapterRank = new myAdapterRank(this, getAllItemsRank());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerViewRank.setLayoutManager(linearLayoutManager);
+        adapterRank.notifyDataSetChanged();
+        recyclerViewRank.setAdapter(adapterRank);
+    }
+
     public void putScoreArraytoDB(ArrayList<String> holeArr, ArrayList<String> parArr,
                                   ArrayList<String> p1ScoreArr, ArrayList<String> p2ScoreArr,
                                   ArrayList<String> p3ScoreArr, ArrayList<String> p4ScoreArr) {
 
         myDBHelperScore.deleteAllData();
-
         for (int i = 0; i < holeArr.size(); i++) {
             myDBHelperScore.saveToDB(holeArr.get(i), parArr.get(i), p1ScoreArr.get(i),
                     p2ScoreArr.get(i), p3ScoreArr.get(i), p4ScoreArr.get(i));
+        }
+
+    }
+
+    public void putScoreArraytoRankDB(ArrayList<String> rankArr, ArrayList<String> playerArr,
+                                  ArrayList<String> scoreArr, ArrayList<String> thruArr,
+                                  ArrayList<String> shotArr) {
+
+        myDBHelperRank.deleteAllData();
+
+        for (int i = 0; i < playerArr.size(); i++) {
+            myDBHelperRank.saveToDB(rankArr.get(i), playerArr.get(i), scoreArr.get(i),
+                    thruArr.get(i), shotArr.get(i));
         }
 
     }
@@ -780,66 +782,20 @@ public class CountingPage extends AppCompatActivity {
                 null, null, null);
     }
 
+    private Cursor getAllItemsRank() {
+        return myDBRank.query(TABLE_NAME4, null, null, null,
+                null, null, null);
+    }
 
-    /*private void putCCDBToArray() {
-        arrCCNAme.clear();
-        arrH1.clear();
-        arrH2.clear();
-        arrH3.clear();
-        arrH4.clear();
-        arrH5.clear();
-        arrH6.clear();
-        arrH7.clear();
-        arrH8.clear();
-        arrH9.clear();
-        arrHout.clear();
-        arrH10.clear();
-        arrH11.clear();
-        arrH12.clear();
-        arrH13.clear();
-        arrH14.clear();
-        arrH15.clear();
-        arrH16.clear();
-        arrH17.clear();
-        arrH18.clear();
-        arrHin.clear();
-        arrHttl.clear();
 
-        Cursor cursor = myDBHelperCC.readAllData();
-
-        while (cursor.moveToNext()) {
-            arrCCNAme.add(cursor.getString(0));
-            arrH1.add(cursor.getString(1));
-            arrH2.add(cursor.getString(2));
-            arrH3.add(cursor.getString(3));
-            arrH4.add(cursor.getString(4));
-            arrH5.add(cursor.getString(5));
-            arrH6.add(cursor.getString(6));
-            arrH7.add(cursor.getString(7));
-            arrH8.add(cursor.getString(8));
-            arrH9.add(cursor.getString(9));
-            arrHout.add(cursor.getString(10));
-            arrH10.add(cursor.getString(11));
-            arrH11.add(cursor.getString(12));
-            arrH12.add(cursor.getString(13));
-            arrH13.add(cursor.getString(14));
-            arrH14.add(cursor.getString(15));
-            arrH15.add(cursor.getString(16));
-            arrH16.add(cursor.getString(17));
-            arrH17.add(cursor.getString(18));
-            arrH18.add(cursor.getString(19));
-            arrHin.add(cursor.getString(20));
-            arrHttl.add(cursor.getString(21));
-        }
-    }*/
 
     public void variablesSetter() {
         scoreView1 = findViewById(R.id.view_score1);
         scoreView2 = findViewById(R.id.view_score2);
         scoreView3 = findViewById(R.id.view_score3);
         scoreView4 = findViewById(R.id.view_score4);
-        tempTextViewHole = findViewById(R.id.temp_textView_Hole);
-        tempTextViewPar = findViewById(R.id.temp_textView_Par);
+/*        tempTextViewHole = findViewById(R.id.temp_textView_Hole);
+        tempTextViewPar = findViewById(R.id.temp_textView_Par);*/
 
         buttonPlus1 = findViewById(R.id.button_plus1);
         buttonPlus2 = findViewById(R.id.button_plus2);
@@ -884,8 +840,10 @@ public class CountingPage extends AppCompatActivity {
         myDBCC = myDBHelperCC.getWritableDatabase();
         myDBTotal = myDBHelperTotal.getWritableDatabase();
         myDBScore = myDBHelperScore.getWritableDatabase();
+        myDBRank = myDBHelperRank.getWritableDatabase();
 
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerViewRank = findViewById(R.id.recyclerView_summary);
 
 
     }

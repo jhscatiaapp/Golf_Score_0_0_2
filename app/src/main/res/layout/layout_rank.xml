@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/rank_rank"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/summary_table_border2"
+        android:gravity="center"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="RANK"
+        android:textColor="@color/text_background1"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/rank_name"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/summary_table_border2"
+        android:gravity="center"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="NAME"
+        android:textColor="@color/text_background1"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/rank_total"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/summary_table_border2"
+        android:gravity="center"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="TOTAL"
+        android:textColor="@color/purple_500"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/rank_thru"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/summary_table_border2"
+        android:gravity="center"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="THRU"
+        android:textColor="@color/text_background1"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/rank_shot"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/summary_table_border2"
+        android:gravity="center"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:text="SHOT"
+        android:textColor="@color/purple_500"
+        android:textSize="15sp" />
+
+</LinearLayout>
+
+
