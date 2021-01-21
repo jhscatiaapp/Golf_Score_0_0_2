@@ -304,20 +304,6 @@ public class CountingPage extends AppCompatActivity {
             }
             rankScoreDisplay(rankScore, arrangedPlayer, score, thru, shot);
 
-
-            /**     Temp Result Show  ----------------------------------   */
-/*
-            tempTextViewHole.setText("");
-            tempTextViewPar.setText("");
-
-            for (int i = 0; i < 4; i++) {
-                tempTextViewHole.append(myList.get(i).getmName() + " " + rankScore.get(i) + " / ");
-            }
-*/
-
-            /**------------------------------------------------------------*/
-
-
             /**     After OK button will set score as '0'     */
             tempScore1 = 0;
             tempScore2 = 0;
@@ -331,9 +317,6 @@ public class CountingPage extends AppCompatActivity {
 
             if (countNum == 19) {  greyTextAll();  }
         });
-
-
-
 
 
     }
